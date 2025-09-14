@@ -1,15 +1,57 @@
+ <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Que é COP30? com Simulador de Reciclagem</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
     <header>
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="https://i.ibb.co/3fd0n5m/logo.png" alt="Missão COP30 Logo">
-            </a>
-            <nav>
-                <ul>
-                    <!-- O link com a classe "active" muda dependendo da página -->
-                    <li><a href="sobre.html">Sobre a COP30</a></li>
-                    <li><a href="jogo.html">Jogar Agora</a></li>
-                    <li><a href="recompensas.html">Recompensas</a></li>
-                </ul>
-            </nav>
+        <div class="logo">
+            <img src="https://i.imgur.com/vS6L3O0.png" alt="Logo COP30">
         </div>
+        <h1>Bem-vindo à Iniciativa COP30: Recicle e Ganhe</h1>
     </header>
+
+    <main>
+        <section id="o-que-e-cop30">
+            <h2>O Que é a COP30?</h2>
+            <p>A 30ª Conferência das Partes da Convenção-Quadro das Nações Unidas sobre a Mudança do Clima (COP30) acontecerá em Belém, Brasil, de 10 a 21 de novembro de 2025. [1, 2] O evento reunirá líderes mundiais para discutir e tomar decisões cruciais sobre o futuro do nosso planeta e o combate às mudanças climáticas. [4, 6] Os principais objetivos incluem a redução das emissões de gases de efeito estufa, o avanço no financiamento climático e a promoção de ações de adaptação. [8]</p>
+        </section>
+
+        <section id="simulador-3d">
+            <h2>Simulador 3D de Reciclagem</h2>
+            <div id="game-container">
+                <!-- O simulador 3D será inserido aqui -->
+                <div class="placeholder-simulador">
+                    <p>Espaço reservado para o Simulador 3D</p>
+                </div>
+            </div>
+            <div id="score-board">
+                <h3>Sua Pontuação</h3>
+                <p>Lixo Coletado: <span id="trash-count">0</span></p>
+                <button id="collect-trash-btn">Coletar Lixo (Simulação)</button>
+            </div>
+        </section>
+
+        <section id="recompensas">
+            <h2>Troque seus Pontos por Comida!</h2>
+            <p>A cada 1000 pontos acumulados no nosso simulador, você poderá trocar por recompensas da vida real, como vouchers para refeições em nossos restaurantes parceiros. É a sua chance de fazer a diferença no mundo virtual e no mundo real!</p>
+            <div id="reward-status">
+                <p>Progresso para a próxima recompensa:</p>
+                <div class="progress-bar-container">
+                    <div id="progress-bar" style="width: 0%;"></div>
+                </div>
+                <p><span id="progress-text">0</span>/1000</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Iniciativa COP30 - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
