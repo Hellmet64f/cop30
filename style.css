@@ -1,196 +1,78 @@
-/* style.css */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Teko:wght@700&display=swap');
-
-:root {
-    --primary-color: #004d40; /* Verde Floresta Escuro */
-    --secondary-color: #00796b; /* Verde Médio */
-    --accent-color: #ffc107; /* Amarelo Âmbar */
-    --text-color: #333;
-    --light-gray: #f5f5f5;
-    --white-color: #FFFFFF;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--light-gray);
-    color: var(--text-color);
-    line-height: 1.7;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
 }
 
-.container { width: 90%; max-width: 1200px; margin: auto; }
-
-/* --- Header e Navegação --- */
 header {
-    background: var(--white-color);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    padding: 0.75rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    background: #005f73;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
 }
 
-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+header .logo img {
+    width: 150px;
 }
 
-.logo img {
-    max-height: 50px; /* Controla a altura da sua logo */
-    width: auto;
+main {
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
 }
 
-nav ul { list-style: none; display: flex; }
-nav ul li { margin-left: 30px; }
-nav ul li a {
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 700;
-    padding-bottom: 5px;
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s ease;
-}
-nav ul li a:hover, nav ul li a.active {
-    color: var(--secondary-color);
-    border-bottom-color: var(--accent-color);
+section {
+    background: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
 }
 
-/* --- Herói --- */
-.hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.pexels.com/photos/3727255/pexels-photo-3727255.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
-    height: 90vh;
+.placeholder-simulador {
+    height: 400px;
+    border: 2px dashed #ccc;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    color: var(--white-color);
-    padding: 0 20px;
-}
-.hero h1 {
-    font-family: 'Teko', sans-serif;
-    font-size: 5rem;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-}
-.hero p { font-size: 1.3rem; max-width: 700px; margin-bottom: 30px; }
-
-/* --- Botão Principal --- */
-.btn {
-    display: inline-block;
-    padding: 15px 35px;
-    background: var(--accent-color);
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: 700;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    font-size: 1.5rem;
+    color: #777;
+    margin-bottom: 20px;
 }
 
-/* --- Seções --- */
-.section { padding: 80px 0; }
-.section-title {
-    text-align: center;
-    font-family: 'Teko', sans-serif;
-    font-size: 3.5rem;
-    margin-bottom: 50px;
-    color: var(--primary-color);
-}
-
-/* --- Página Sobre --- */
-.about-content { max-width: 800px; margin: 0 auto; }
-.about-content h3 {
-    font-family: 'Teko', sans-serif;
-    font-size: 2.2rem;
-    color: var(--secondary-color);
-    margin-top: 30px;
-    margin-bottom: 10px;
-}
-
-/* --- Recompensas --- */
-.rewards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-.reward-card {
-    background: var(--white-color);
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.reward-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-}
-.reward-card img.reward-photo {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-.reward-card-content { padding: 25px; }
-.reward-card-content img.partner-logo { max-height: 40px; margin-bottom: 15px; }
-.reward-card h3 { font-size: 1.5rem; color: var(--primary-color); }
-.reward-card .price {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--secondary-color);
-    margin: 15px 0;
-}
-
-/* --- JOGO --- */
-#game-section { text-align: center; }
-#game-container {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    height: 600px;
-    background: linear-gradient(#87CEEB, #A1C4FD);
-    margin: 30px auto;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    overflow: hidden;
-}
-#ground {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100px;
-    background: #7C4700;
-}
 #score-board {
-    font-family: 'Teko', sans-serif;
-    font-size: 3rem;
-    color: var(--white-color);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-.trash-item {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-.trash-item:hover { transform: scale(1.1); }
-
-/* --- Footer --- */
-footer {
-    background: var(--primary-color);
-    color: var(--white-color);
     text-align: center;
-    padding: 2rem 0;
-    margin-top: 40px;
+}
+
+#collect-trash-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #00a896;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+}
+
+#progress-bar {
+    height: 20px;
+    background-color: #4caf50;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #333;
+    color: #fff;
 }
