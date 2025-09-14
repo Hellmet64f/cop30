@@ -1,57 +1,176 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Que é COP30? com Simulador de Reciclagem</title>
+    <title>COP30 - Belém 2025 | Simulador Herói do Clima</title>
+    <meta name="description" content="Participe do movimento pela sustentabilidade com o site oficial da COP30 em Belém. Jogue nosso simulador 3D, colete lixo, ganhe pontos e troque por recompensas reais.">
+    <meta name="keywords" content="COP30, Belém, Mudanças Climáticas, Sustentabilidade, Reciclagem, Jogo 3D, Recompensas">
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="https://i.imgur.com/vS6L3O0.png" alt="Logo COP30">
+
+    <!-- Cabeçalho e Navegação -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo-container">
+                <img src="https://i.imgur.com/5vshYXJ.png" alt="Logo COP30" class="logo">
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#about-cop30">Sobre a COP30</a></li>
+                    <li><a href="#simulator">Simulador 3D</a></li>
+                    <li><a href="#rewards">Recompensas</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
         </div>
-        <h1>Bem-vindo à Iniciativa COP30: Recicle e Ganhe</h1>
     </header>
 
-    <main>
-        <section id="o-que-e-cop30">
+    <!-- Seção Principal de Boas-Vindas -->
+    <section id="hero" class="hero-section">
+        <div class="container">
+            <h1>Seja um Herói do Clima na COP30</h1>
+            <p>Junte-se a nós em Belém 2025. Aprenda, jogue e faça a diferença.</p>
+            <a href="#simulator" class="cta-button">Comece a Coletar Agora!</a>
+        </div>
+    </section>
+
+    <!-- Seção Sobre a COP30 -->
+    <section id="about-cop30" class="content-section">
+        <div class="container">
             <h2>O Que é a COP30?</h2>
-            <p>A 30ª Conferência das Partes da Convenção-Quadro das Nações Unidas sobre a Mudança do Clima (COP30) acontecerá em Belém, Brasil, de 10 a 21 de novembro de 2025. [1, 2] O evento reunirá líderes mundiais para discutir e tomar decisões cruciais sobre o futuro do nosso planeta e o combate às mudanças climáticas. [4, 6] Os principais objetivos incluem a redução das emissões de gases de efeito estufa, o avanço no financiamento climático e a promoção de ações de adaptação. [8]</p>
-        </section>
+            <div class="about-content">
+                <p>A 30ª Conferência das Partes da Convenção-Quadro das Nações Unidas sobre a Mudança do Clima (COP30) será realizada em Belém, no Brasil, de 10 a 21 de novembro de 2025. [2, 5] Este evento crucial reunirá líderes mundiais, cientistas, organizações e a sociedade civil para negociar e acelerar ações contra a crise climática. [4, 6] O principal objetivo é fortalecer o compromisso global para limitar o aquecimento a 1,5°C, conforme o Acordo de Paris. [2]</p>
+                <p>A escolha de Belém, uma cidade no coração da Amazônia, simboliza a urgência em proteger as florestas tropicais e valorizar o conhecimento dos povos indígenas na luta contra as mudanças climáticas. [7] Durante a conferência, os países deverão apresentar seus novos planos de ação climática, conhecidos como Contribuições Nacionalmente Determinadas (NDCs). [4, 7]</p>
+            </div>
+        </div>
+    </section>
 
-        <section id="simulador-3d">
-            <h2>Simulador 3D de Reciclagem</h2>
-            <div id="game-container">
-                <!-- O simulador 3D será inserido aqui -->
-                <div class="placeholder-simulador">
-                    <p>Espaço reservado para o Simulador 3D</p>
+    <!-- Seção do Simulador 3D -->
+    <section id="simulator" class="simulator-section">
+        <div class="container">
+            <h2>Simulador 3D: Herói do Clima</h2>
+            <p class="subtitle">Movimente-se pelo cenário, clique no lixo para coletar e acumule pontos!</p>
+
+            <div id="simulator-container">
+                <!-- O canvas do Three.js será inserido aqui pelo JavaScript -->
+            </div>
+            
+            <div class="game-ui">
+                <div class="score-panel">
+                    <h3>Sua Pontuação</h3>
+                    <p>Lixo Coletado: <span id="score-value">0</span></p>
+                </div>
+                <div class="rewards-progress">
+                    <h3>Progresso para Recompensa</h3>
+                    <div class="progress-bar-container">
+                        <div id="progress-bar" class="progress-bar"></div>
+                    </div>
+                    <p><span id="progress-text">0</span> / 1000 Pontos</p>
+                </div>
+                <div class="instructions">
+                    <h3>Como Jogar</h3>
+                    <p>Use o mouse para olhar ao redor e as teclas W, A, S, D para se mover. Clique nos objetos de lixo para coletá-los.</p>
                 </div>
             </div>
-            <div id="score-board">
-                <h3>Sua Pontuação</h3>
-                <p>Lixo Coletado: <span id="trash-count">0</span></p>
-                <button id="collect-trash-btn">Coletar Lixo (Simulação)</button>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="recompensas">
-            <h2>Troque seus Pontos por Comida!</h2>
-            <p>A cada 1000 pontos acumulados no nosso simulador, você poderá trocar por recompensas da vida real, como vouchers para refeições em nossos restaurantes parceiros. É a sua chance de fazer a diferença no mundo virtual e no mundo real!</p>
-            <div id="reward-status">
-                <p>Progresso para a próxima recompensa:</p>
-                <div class="progress-bar-container">
-                    <div id="progress-bar" style="width: 0%;"></div>
+    <!-- Seção de Recompensas -->
+    <section id="rewards" class="content-section-dark">
+        <div class="container">
+            <h2>Sistema de Recompensas: Sua Ação Vale Muito!</h2>
+            <div class="rewards-grid">
+                <div class="reward-card">
+                    <img src="https://i.imgur.com/example-food.png" alt="Ícone de Comida" class="reward-icon">
+                    <h3>Vouchers de Alimentação</h3>
+                    <p>Junte 1000 pontos e troque por um voucher para uma refeição em um de nossos restaurantes parceiros. Comer bem fazendo o bem!</p>
                 </div>
-                <p><span id="progress-text">0</span>/1000</p>
+                <div class="reward-card">
+                    <img src="https://i.imgur.com/example-plant.png" alt="Ícone de Planta" class="reward-icon">
+                    <h3>Mudas de Árvores</h3>
+                    <p>Com 5000 pontos, você pode solicitar o plantio de uma árvore em uma área de reflorestamento. Deixe sua marca no planeta!</p>
+                </div>
+                <div class="reward-card">
+                    <img src="https://i.imgur.com/example-ticket.png" alt="Ícone de Ingresso" class="reward-icon">
+                    <h3>Ingressos para Eventos</h3>
+                    <p>Acumule 10000 pontos e ganhe ingressos para eventos culturais e palestras sobre sustentabilidade em sua cidade.</p>
+                </div>
             </div>
-        </section>
-    </main>
+            <div class="redeem-section">
+                <p>Quando atingir a pontuação necessária, um botão de resgate aparecerá aqui!</p>
+                <button id="redeem-button" class="cta-button" disabled>Resgatar Recompensa</button>
+            </div>
+        </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2025 Iniciativa COP30 - Todos os direitos reservados.</p>
+    <!-- Seção de Perguntas Frequentes (FAQ) -->
+    <section id="faq" class="content-section">
+        <div class="container">
+            <h2>Perguntas Frequentes (FAQ)</h2>
+            <div class="faq-accordion">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Como o simulador funciona?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>O simulador é um ambiente 3D criado com a tecnologia WebGL e a biblioteca Three.js. Ele permite que você navegue por um cenário virtual e interaja com objetos. Cada "lixo" que você coleta adiciona um ponto à sua contagem. É uma forma lúdica de aprender sobre a importância da coleta seletiva.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>As recompensas são reais?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim! Firmamos parcerias com empresas e organizações locais para oferecer recompensas tangíveis. Ao atingir a pontuação necessária, você receberá um código ou voucher digital para resgatar seu prêmio. Queremos que sua ação virtual tenha um impacto positivo no mundo real.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Preciso pagar para jogar ou receber recompensas?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutamente não. A participação é totalmente gratuita. Nosso objetivo é a conscientização e o engajamento. As recompensas são um incentivo para que mais pessoas participem e aprendam sobre a COP30 e a sustentabilidade.</p>
+                    </div>
+                </div>
+                 <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Como posso apoiar esta iniciativa?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>A melhor forma de apoiar é participando e compartilhando o site com seus amigos e familiares! Quanto mais pessoas engajadas, maior o nosso impacto. Se você representa uma empresa e deseja se tornar um parceiro de recompensas, entre em contato conosco através do email no rodapé.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Iniciativa COP30 Belém. Todos os direitos reservados.</p>
+            <p>Uma plataforma para educação e ação climática.</p>
+            <p>Contato para parcerias: <a href="mailto:parcerias@cop30simulador.com">parcerias@cop30simulador.com</a></p>
+        </div>
     </footer>
-
-    <script src="script.js"></script>
+    
+    <!-- Scripts -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.156.1/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.156.1/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
