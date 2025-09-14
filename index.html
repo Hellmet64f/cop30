@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" style="scroll-behavior: smooth;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,7 +84,7 @@
         }
 
         .titulo-site {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
             font-weight: 700;
             margin: 0;
         }
@@ -182,7 +182,7 @@
         }
 
         .hero-title {
-            font-size: 3rem;
+            font-size: clamp(2rem, 6vw, 3rem);
             font-weight: 700;
             margin-bottom: 1rem;
             position: relative;
@@ -190,7 +190,7 @@
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 3vw, 1.3rem);
             margin-bottom: 2rem;
             opacity: 0.9;
             position: relative;
@@ -202,6 +202,7 @@
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            margin-top: 1.5rem;
         }
 
         .tab-content.ativo {
@@ -221,6 +222,39 @@
             text-align: center;
             margin: 2rem 0;
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .ecogame-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .ecogame-card {
+            background: var(--branco);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .ecogame-card h3 {
+            color: var(--verde-brasil);
+            margin-bottom: 1rem;
+        }
+        
+        .ranking-list, .desafios-list {
+            list-style: none;
+        }
+
+        .ranking-list li, .desafios-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--cinza-medio);
+        }
+
+        .ranking-list li:last-child, .desafios-list li:last-child {
+            border-bottom: none;
         }
 
         .lixeira-virtual {
@@ -449,7 +483,7 @@
             color: var(--branco);
             padding: 1rem 2rem;
             border-radius: 8px;
-            transform: translateX(300px);
+            transform: translateX(350px);
             transition: transform 0.3s ease;
             z-index: 1000;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -462,25 +496,44 @@
         .cop-timeline {
             position: relative;
             padding: 2rem 0;
+            margin-left: 1rem;
+        }
+        .cop-timeline::before {
+            content: '';
+            position: absolute;
+            left: 40px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--cinza-medio);
+            border-radius: 2px;
         }
 
         .timeline-item {
-            display: flex;
-            margin-bottom: 2rem;
             position: relative;
+            margin-bottom: 3rem;
+            padding-left: 80px;
         }
-
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
         .timeline-year {
+            position: absolute;
+            left: 0;
+            top: 5px;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
             background: var(--verde-brasil);
             color: var(--branco);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            margin-right: 2rem;
-            min-width: 80px;
-            text-align: center;
+            border: 4px solid var(--cinza-claro);
+            z-index: 2;
         }
-
         .timeline-content {
             background: var(--branco);
             padding: 1.5rem;
@@ -519,6 +572,7 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
             margin-bottom: 2rem;
+            text-align: left;
         }
 
         .footer-section h3 {
@@ -538,62 +592,11 @@
             color: var(--branco);
             text-decoration: none;
             transition: color 0.3s ease;
+            cursor: pointer;
         }
 
         .footer-section ul li a:hover {
             color: var(--amarelo-brasil);
-        }
-
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .nav-lista {
-                flex-direction: column;
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .grid-recompensas {
-                grid-template-columns: 1fr;
-            }
-            
-            .dicas-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .timeline-item {
-                flex-direction: column;
-            }
-            
-            .timeline-year {
-                margin-right: 0;
-                margin-bottom: 1rem;
-                align-self: flex-start;
-            }
-        }
-
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--verde-brasil);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
         }
 
         .modal {
@@ -634,9 +637,49 @@
         .close:hover {
             color: var(--cinza-escuro);
         }
+
+        #btnVoltarTopo {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--verde-brasil);
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        #btnVoltarTopo:hover {
+            background-color: var(--verde-escuro);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-lista { flex-direction: column; }
+            .grid-recompensas, .dicas-grid, .stats-grid, .ecogame-grid { grid-template-columns: 1fr; }
+            .cop-timeline { margin-left: 0; }
+            .cop-timeline::before { left: 20px; }
+            .timeline-item { padding-left: 50px; }
+            .timeline-year { width: 40px; height: 40px; font-size: 0.8rem; border-width: 2px; }
+            .footer-content { text-align: center; }
+            .footer-section ul { padding-left: 0; }
+        }
     </style>
 </head>
 <body>
+
+    <button onclick="voltarAoTopo()" id="btnVoltarTopo" title="Voltar ao topo">↑</button>
+
     <!-- Modal de Recompensa -->
     <div id="modalRecompensa" class="modal">
         <div class="modal-content">
@@ -675,24 +718,13 @@
     <nav class="nav-principal">
         <div class="container">
             <ul class="nav-lista">
-                <li class="nav-item">
-                    <a href="#" class="nav-link ativo" onclick="mostrarTab('cop30')">COP 30</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="mostrarTab('reciclagem')">Como Reciclar</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="mostrarTab('meio-ambiente')">Meio Ambiente</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="mostrarTab('jogo')">EcoGame</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="mostrarTab('recompensas')">Recompensas</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" onclick="mostrarTab('historico-cop')">História das COPs</a>
-                </li>
+                <li class="nav-item"><a href="#cop30" class="nav-link ativo" onclick="mostrarTab('cop30', event)">COP 30</a></li>
+                <li class="nav-item"><a href="#reciclagem" class="nav-link" onclick="mostrarTab('reciclagem', event)">Como Reciclar</a></li>
+                <li class="nav-item"><a href="#meio-ambiente" class="nav-link" onclick="mostrarTab('meio-ambiente', event)">Meio Ambiente</a></li>
+                <li class="nav-item"><a href="#sos-plastico" class="nav-link" onclick="mostrarTab('sos-plastico', event)">SOS Plástico</a></li>
+                <li class="nav-item"><a href="#jogo" class="nav-link" onclick="mostrarTab('jogo', event)">EcoGame</a></li>
+                <li class="nav-item"><a href="#recompensas" class="nav-link" onclick="mostrarTab('recompensas', event)">Recompensas</a></li>
+                <li class="nav-item"><a href="#historico-cop" class="nav-link" onclick="mostrarTab('historico-cop', event)">História das COPs</a></li>
             </ul>
         </div>
     </nav>
@@ -704,569 +736,136 @@
             <div class="hero-cop30">
                 <h2 class="hero-title">COP 30 - Belém 2025</h2>
                 <p class="hero-subtitle">A Conferência do Clima mais importante da década acontece no coração da Amazônia</p>
-                <button class="btn btn-primario" onclick="mostrarTab('cop30')">Saiba Mais sobre a COP 30</button>
+                <button class="btn btn-primario" onclick="navegarParaTab('cop30')">Saiba Mais sobre a COP 30</button>
             </div>
 
-            <!-- Tab COP 30 -->
-            <div id="cop30" class="tab-content ativo">
+            <!-- As seções abaixo agora são os alvos da navegação -->
+            <section id="cop30" class="tab-content ativo">
                 <h2>🌍 COP 30 - Conferência das Nações Unidas sobre Mudança do Clima</h2>
-                
                 <div class="estatisticas">
                     <h3 style="text-align: center; margin-bottom: 2rem;">Números da COP 30</h3>
                     <div class="stats-grid">
-                        <div class="stat-item">
-                            <h3>195</h3>
-                            <p>Países Participantes</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>40mil</h3>
-                            <p>Participantes Esperados</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>2025</h3>
-                            <p>Ano Decisivo para o Clima</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>1.5°C</h3>
-                            <p>Meta de Aquecimento</p>
-                        </div>
+                        <div class="stat-item"><h3 data-count="195">0</h3><p>Países Participantes</p></div>
+                        <div class="stat-item"><h3 data-count="40000">0</h3><p>Participantes Esperados</p></div>
+                        <div class="stat-item"><h3 data-count="2025">0</h3><p>Ano Decisivo para o Clima</p></div>
+                        <div class="stat-item"><h3 data-count="1.5">0</h3><p>Meta de Aquecimento</p></div>
                     </div>
                 </div>
-
                 <div class="dicas-grid">
-                    <div class="dica-card">
-                        <h3>🏛️ O que é a COP 30?</h3>
-                        <p>A 30ª Conferência das Partes da Convenção-Quadro das Nações Unidas sobre Mudança do Clima será realizada em Belém, Pará, em 2025. É o maior evento sobre meio ambiente do mundo.</p>
-                    </div>
-                    <div class="dica-card">
-                        <h3>🌳 Por que na Amazônia?</h3>
-                        <p>A Amazônia é fundamental para o equilíbrio climático global. Sediar a COP 30 em Belém destaca a importância da floresta na luta contra as mudanças climáticas.</p>
-                    </div>
-                    <div class="dica-card">
-                        <h3>🎯 Principais Objetivos</h3>
-                        <p>Definir novas metas de redução de emissões, financiamento climático, proteção da biodiversidade e transição energética sustentável.</p>
-                    </div>
-                    <div class="dica-card">
-                        <h3>🤝 Participação Brasileira</h3>
-                        <p>O Brasil assume protagonismo na agenda climática global, apresentando soluções inovadoras e compromissos ambiciosos para a sustentabilidade.</p>
-                    </div>
+                    <div class="dica-card"><h3>🏛️ O que é a COP 30?</h3><p>A 30ª Conferência das Partes da Convenção-Quadro das Nações Unidas sobre Mudança do Clima será realizada em Belém, Pará, em 2025. É o maior evento sobre meio ambiente do mundo.</p></div>
+                    <div class="dica-card"><h3>🌳 Por que na Amazônia?</h3><p>A Amazônia é fundamental para o equilíbrio climático global. Sediar a COP 30 em Belém destaca a importância da floresta na luta contra as mudanças climáticas.</p></div>
+                    <div class="dica-card"><h3>🎯 Principais Objetivos</h3><p>Definir novas metas de redução de emissões, financiamento climático, proteção da biodiversidade e transição energética sustentável.</p></div>
+                    <div class="dica-card"><h3>🤝 Participação Brasileira</h3><p>O Brasil assume protagonismo na agenda climática global, apresentando soluções inovadoras e compromissos ambiciosos para a sustentabilidade.</p></div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Tab Reciclagem -->
-            <div id="reciclagem" class="tab-content">
+            <section id="reciclagem" class="tab-content">
                 <h2>♻️ Como Reciclar Corretamente</h2>
-                
                 <div class="dicas-grid">
-                    <div class="dica-card">
-                        <h3>📄 Papel e Papelão</h3>
-                        <p><strong>✅ Pode:</strong> Jornais, revistas, caixas, cadernos</p>
-                        <p><strong>❌ Não pode:</strong> Papel higiênico, guardanapos sujos, fotografias</p>
-                        <p><strong>💡 Dica:</strong> Remova grampos e fitas adesivas antes de descartar</p>
-                    </div>
-                    <div class="dica-card">
-                        <h3>🥤 Plásticos</h3>
-                        <p><strong>✅ Pode:</strong> Garrafas PET, embalagens, sacolas</p>
-                        <p><strong>❌ Não pode:</strong> Plásticos sujos, adesivos, isopor</p>
-                        <p><strong>💡 Dica:</strong> Lave as embalagens antes de descartar</p>
-                    </div>
-                    <div class="dica-card">
-                        <h3>🥫 Metais</h3>
-                        <p><strong>✅ Pode:</strong> Latas de alumínio, ferro, aço</p>
-                        <p><strong>❌ Não pode:</strong> Materiais com tinta, aerossóis</p>
-                        <p><strong>💡 Dica:</strong> Amasse as latas para economizar espaço</p>
-                    </div>
-                    <div class="dica-card">
-                        <h3>🍶 Vidros</h3>
-                        <p><strong>✅ Pode:</strong> Garrafas, potes, frascos</p>
-                        <p><strong>❌ Não pode:</strong> Espelhos, cristais, vidros temperados</p>
-                        <p><strong>💡 Dica:</strong> Cuidado com vidros quebrados, embrulhe bem</p>
-                    </div>
+                    <div class="dica-card"><h3>📄 Papel e Papelão</h3><p><strong>✅ Pode:</strong> Jornais, revistas, caixas, cadernos</p><p><strong>❌ Não pode:</strong> Papel higiênico, guardanapos sujos, fotografias</p><p><strong>💡 Dica:</strong> Remova grampos e fitas adesivas.</p></div>
+                    <div class="dica-card"><h3>🥤 Plásticos</h3><p><strong>✅ Pode:</strong> Garrafas PET, embalagens, sacolas</p><p><strong>❌ Não pode:</strong> Plásticos sujos, adesivos, isopor</p><p><strong>💡 Dica:</strong> Lave as embalagens antes de descartar.</p></div>
+                    <div class="dica-card"><h3>🥫 Metais</h3><p><strong>✅ Pode:</strong> Latas de alumínio, ferro, aço</p><p><strong>❌ Não pode:</strong> Materiais com tinta, aerossóis</p><p><strong>💡 Dica:</strong> Amasse as latas para economizar espaço.</p></div>
+                    <div class="dica-card"><h3>🍶 Vidros</h3><p><strong>✅ Pode:</strong> Garrafas, potes, frascos</p><p><strong>❌ Não pode:</strong> Espelhos, cristais, vidros temperados</p><p><strong>💡 Dica:</strong> Cuidado com vidros quebrados, embrulhe bem.</p></div>
                 </div>
-
                 <div class="estatisticas">
                     <h3 style="text-align: center; margin-bottom: 2rem;">💚 Impacto da Reciclagem</h3>
                     <div class="stats-grid">
-                        <div class="stat-item">
-                            <h3>1 ton</h3>
-                            <p>Papel reciclado = 20 árvores poupadas</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>90%</h3>
-                            <p>Menos energia para reciclar alumínio</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>500 anos</h3>
-                            <p>Tempo para plástico se degradar</p>
-                        </div>
-                        <div class="stat-item">
-                            <h3>100%</h3>
-                            <p>Vidro pode ser reciclado infinitamente</p>
-                        </div>
+                        <div class="stat-item"><h3 data-count="20">0</h3><p>Árvores poupadas por tonelada de papel reciclado</p></div>
+                        <div class="stat-item"><h3 data-count="90">0</h3><p>% de economia de energia ao reciclar alumínio</p></div>
+                        <div class="stat-item"><h3 data-count="500">0</h3><p>Anos para o plástico se degradar na natureza</p></div>
+                        <div class="stat-item"><h3 data-count="100">0</h3><p>% do vidro pode ser reciclado infinitamente</p></div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Tab Meio Ambiente -->
-            <div id="meio-ambiente" class="tab-content">
+            <section id="meio-ambiente" class="tab-content">
                 <h2>🌱 Como Salvar o Meio Ambiente</h2>
-                
                 <div class="dicas-grid">
-                    <div class="dica-card">
-                        <h3>💡 Economize Energia</h3>
-                        <p>• Use lâmpadas LED<br>
-                        • Desligue aparelhos da tomada<br>
-                        • Prefira luz natural<br>
-                        • Use ar condicionado conscientemente</p>
-                    </div>
-                    <div class="dica-card">
-                        <h3>💧 Poupe Água</h3>
-                        <p>• Banhos mais curtos<br>
-                        • Conserte vazamentos<br>
-                        • Reutilize água da chuva<br>
-                        • Feche a torneira ao escovar os dentes</p>
-                    </div>
-                    <div class="dica-card">
-                        <h3>🚗 Transporte Sustentável</h3>
-                        <p>• Use transporte público<br>
-                        • Prefira bicicleta ou caminhada<br>
-                        • Compartilhe caronas<br>
-                        • Trabalhe home office quando possível</p>
-                    </div>
-                    <div class="dica-card">
-                        <h3>🍃 Consumo Consciente</h3>
-                        <p>• Compre apenas o necessário<br>
-                        • Prefira produtos locais<br>
-                        • Evite embalagens excessivas<br>
-                        • Doe ou venda itens que não usa</p>
-                    </div>
-                    <div class="dica-card">
-                        <h3>🌳 Proteja a Natureza</h3>
-                        <p>• Plante árvores e flores<br>
-                        • Não jogue lixo na natureza<br>
-                        • Participe de limpezas ambientais<br>
-                        • Apoie ONGs ambientais</p>
-                    </div>
-                    <div class="dica-card">
-                        <h3>🥬 Alimentação Sustentável</h3>
-                        <p>• Reduza o consumo de carne<br>
-                        • Prefira alimentos orgânicos<br>
-                        • Evite desperdício de comida<br>
-                        • Faça compostagem doméstica</p>
-                    </div>
+                    <div class="dica-card"><h3>💡 Economize Energia</h3><p>Use lâmpadas LED, desligue aparelhos da tomada, prefira luz natural e use ar condicionado conscientemente.</p></div>
+                    <div class="dica-card"><h3>💧 Poupe Água</h3><p>Tome banhos mais curtos, conserte vazamentos, reutilize água da chuva e feche a torneira ao escovar os dentes.</p></div>
+                    <div class="dica-card"><h3>🚗 Transporte Sustentável</h3><p>Use transporte público, prefira bicicleta ou caminhada, compartilhe caronas e trabalhe de casa quando possível.</p></div>
+                    <div class="dica-card"><h3>🍃 Consumo Consciente</h3><p>Compre apenas o necessário, prefira produtos locais, evite embalagens excessivas e doe itens que não usa.</p></div>
+                    <div class="dica-card"><h3>🌳 Proteja a Natureza</h3><p>Plante árvores, não jogue lixo na natureza, participe de limpezas ambientais e apoie ONGs.</p></div>
+                    <div class="dica-card"><h3>🥬 Alimentação Sustentável</h3><p>Reduza o consumo de carne, prefira alimentos orgânicos, evite desperdício e faça compostagem.</p></div>
                 </div>
-
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressoAmbiental" style="width: 25%;"></div>
-                </div>
+                <div class="progress-bar"><div class="progress-fill" id="progressoAmbiental" style="width: 25%;"></div></div>
                 <p style="text-align: center; margin-top: 1rem;">Progresso das metas ambientais globais: 25%</p>
-            </div>
+            </section>
 
-            <!-- Tab Jogo -->
-            <div id="jogo" class="tab-content">
-                <div class="jogo-reciclagem">
+            <section id="sos-plastico" class="tab-content">
+                <h2>🌊 SOS Plástico: Um Mar de Problemas</h2>
+                <p style="text-align: center; margin-bottom: 2rem;">O plástico tornou-se uma das maiores ameaças ambientais, poluindo oceanos, prejudicando a vida selvagem e até nossa saúde.</p>
+                <div class="estatisticas" style="background: linear-gradient(135deg, #FF6B35, #f53d5a);">
+                    <h3 style="text-align: center; margin-bottom: 2rem;">O Alarme do Plástico</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item"><h3 data-count="8">0</h3><p>Milhões de toneladas de plástico nos oceanos por ano</p></div>
+                        <div class="stat-item"><h3 data-count="2050">0</h3><p>Ano em que haverá mais plástico que peixes no mar</p></div>
+                        <div class="stat-item"><h3 data-count="1">0</h3><p>Milhão de aves marinhas mortas por plástico anualmente</p></div>
+                        <div class="stat-item"><h3 data-count="5">0</h3><p>Trilhões de fragmentos de plástico nos oceanos</p></div>
+                    </div>
+                </div>
+                <div class="dicas-grid">
+                    <div class="dica-card"><h3>🐢 Impacto na Vida Selvagem</h3><p>Animais marinhos confundem plástico com comida ou ficam presos em detritos, causando ferimentos e morte.</p></div>
+                    <div class="dica-card"><h3>🔬 Microplásticos</h3><p>Partículas minúsculas que contaminam a água e entram na cadeia alimentar, chegando até nós.</p></div>
+                </div>
+            </section>
+
+            <section id="jogo" class="tab-content">
+                 <div class="jogo-reciclagem">
                     <h2>🎮 EcoGame - Lixeira Virtual</h2>
                     <p>Clique na lixeira para descartar lixo corretamente e ganhar EcoPontos!</p>
-                    
-                    <div class="lixeira-virtual" onclick="jogarLixo()">
-                        🗑️
-                    </div>
-                    
-                    <div class="contador-lixo">
-                        Lixos descartados: <span id="contadorLixo">0</span>
-                    </div>
-                    
-                    <p>Cada lixo descartado = 1 EcoPonto</p>
-                    <p>Use seus pontos para resgatar recompensas na aba "Recompensas"!</p>
-                    
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressoJogo" style="width: 0%;"></div>
-                    </div>
+                    <div class="lixeira-virtual" onclick="jogarLixo()">🗑️</div>
+                    <div class="contador-lixo">Lixos descartados: <span id="contadorLixo">0</span></div>
+                    <p>Use seus pontos para resgatar recompensas e subir no ranking!</p>
+                    <div class="progress-bar"><div class="progress-fill" id="progressoJogo" style="width: 0%;"></div></div>
                     <p style="margin-top: 1rem;">Meta: 100 lixos descartados</p>
                 </div>
-            </div>
-
-            <!-- Tab Recompensas -->
-            <div id="recompensas" class="tab-content">
-                <h2>🎁 Sistema de Recompensas EcoPontos</h2>
-                <p>Troque seus EcoPontos por recompensas sustentáveis!</p>
-                
-                <div class="grid-recompensas" id="gridRecompensas">
-                    <!-- Comidas -->
-                    <div class="card-recompensa" data-pontos="10">
-                        <div class="recompensa-icone">🍎</div>
-                        <div class="recompensa-titulo">Maçã Orgânica</div>
-                        <div class="recompensa-pontos">10 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(10, 'Maçã Orgânica')">Resgatar</button>
+                <div class="ecogame-grid">
+                    <div class="ecogame-card">
+                        <h3>🏆 Ranking de Eco-Heróis</h3>
+                        <ul class="ranking-list">
+                            <li>🥇 1. Maria S. - <strong>1250 Pontos</strong></li>
+                            <li>🥈 2. João P. - <strong>1100 Pontos</strong></li>
+                            <li>🥉 3. Ana L. - <strong>980 Pontos</strong></li>
+                            <li>4. Você - <strong id="pontosRanking">0 Pontos</strong></li>
+                        </ul>
                     </div>
-                    
-                    <div class="card-recompensa" data-pontos="15">
-                        <div class="recompensa-icone">🌱</div>
-                        <div class="recompensa-titulo">Sementes Orgânicas</div>
-                        <div class="recompensa-pontos">15 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(15, 'Sementes Orgânicas')">Resgatar</button>
-                    </div>
-                    
-                    <div class="card-recompensa" data-pontos="25">
-                        <div class="recompensa-icone">🥪</div>
-                        <div class="recompensa-titulo">Sanduíche Natural</div>
-                        <div class="recompensa-pontos">25 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(25, 'Sanduíche Natural')">Resgatar</button>
-                    </div>
-
-                    <!-- Produtos Ecológicos -->
-                    <div class="card-recompensa" data-pontos="30">
-                        <div class="recompensa-icone">🧴</div>
-                        <div class="recompensa-titulo">Sabão Ecológico</div>
-                        <div class="recompensa-pontos">30 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(30, 'Sabão Ecológico')">Resgatar</button>
-                    </div>
-                    
-                    <div class="card-recompensa" data-pontos="40">
-                        <div class="recompensa-icone">🕯️</div>
-                        <div class="recompensa-titulo">Vela de Soja</div>
-                        <div class="recompensa-pontos">40 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(40, 'Vela de Soja')">Resgatar</button>
-                    </div>
-
-                    <div class="card-recompensa" data-pontos="50">
-                        <div class="recompensa-icone">🥗</div>
-                        <div class="recompensa-titulo">Salada Completa</div>
-                        <div class="recompensa-pontos">50 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(50, 'Salada Completa')">Resgatar</button>
-                    </div>
-
-                    <!-- Itens Sustentáveis -->
-                    <div class="card-recompensa" data-pontos="60">
-                        <div class="recompensa-icone">🥤</div>
-                        <div class="recompensa-titulo">Copo Reutilizável</div>
-                        <div class="recompensa-pontos">60 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(60, 'Copo Reutilizável')">Resgatar</button>
-                    </div>
-
-                    <div class="card-recompensa" data-pontos="75">
-                        <div class="recompensa-icone">📓</div>
-                        <div class="recompensa-titulo">Caderno Reciclado</div>
-                        <div class="recompensa-pontos">75 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(75, 'Caderno Reciclado')">Resgatar</button>
-                    </div>
-
-                    <div class="card-recompensa" data-pontos="85">
-                        <div class="recompensa-icone">🍕</div>
-                        <div class="recompensa-titulo">Pizza Vegana</div>
-                        <div class="recompensa-pontos">85 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(85, 'Pizza Vegana')">Resgatar</button>
-                    </div>
-
-                    <!-- Recompensas Premium -->
-                    <div class="card-recompensa" data-pontos="100">
-                        <div class="recompensa-icone">🌳</div>
-                        <div class="recompensa-titulo">Plante uma Árvore</div>
-                        <div class="recompensa-pontos">100 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(100, 'Plante uma Árvore')">Resgatar</button>
-                    </div>
-
-                    <div class="card-recompensa" data-pontos="150">
-                        <div class="recompensa-icone">🎒</div>
-                        <div class="recompensa-titulo">Mochila Ecológica</div>
-                        <div class="recompensa-pontos">150 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(150, 'Mochila Ecológica')">Resgatar</button>
-                    </div>
-
-                    <div class="card-recompensa" data-pontos="200">
-                        <div class="recompensa-icone">🏆</div>
-                        <div class="recompensa-titulo">Certificado Eco-Herói</div>
-                        <div class="recompensa-pontos">200 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(200, 'Certificado Eco-Herói')">Resgatar</button>
+                    <div class="ecogame-card">
+                        <h3>🎯 Desafios Diários</h3>
+                        <ul class="desafios-list">
+                            <li>♻️ Descarte 10 itens hoje (+5 Pontos Bônus)</li>
+                            <li>🤝 Convide um amigo (+15 Pontos Bônus)</li>
+                            <li>📚 Leia sobre a COP 15 (+3 Pontos Bônus)</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Tab História das COPs -->
-            <div id="historico-cop" class="tab-content">
-                <h2>📜 História Completa das Conferências do Clima (COPs)</h2>
-                <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem; color: var(--verde-escuro);">
-                    Desde 1995, as COPs têm sido o principal fórum global para negociações climáticas. Acompanhe a evolução histórica:
-                </p>
-                
+            <section id="recompensas" class="tab-content">
+                <h2>🎁 Sistema de Recompensas EcoPontos</h2>
+                <p>Troque seus EcoPontos por recompensas sustentáveis!</p>
+                <div class="grid-recompensas" id="gridRecompensas">
+                    <div class="card-recompensa" data-pontos="10"><div class="recompensa-icone">🍎</div><div class="recompensa-titulo">Maçã Orgânica</div><div class="recompensa-pontos">10 EcoPontos</div><button class="btn btn-resgatar" onclick="resgatarRecompensa(10, 'Maçã Orgânica')">Resgatar</button></div>
+                    <div class="card-recompensa" data-pontos="15"><div class="recompensa-icone">🌱</div><div class="recompensa-titulo">Sementes Orgânicas</div><div class="recompensa-pontos">15 EcoPontos</div><button class="btn btn-resgatar" onclick="resgatarRecompensa(15, 'Sementes Orgânicas')">Resgatar</button></div>
+                    <div class="card-recompensa" data-pontos="50"><div class="recompensa-icone">🥗</div><div class="recompensa-titulo">Salada Completa</div><div class="recompensa-pontos">50 EcoPontos</div><button class="btn btn-resgatar" onclick="resgatarRecompensa(50, 'Salada Completa')">Resgatar</button></div>
+                    <div class="card-recompensa" data-pontos="60"><div class="recompensa-icone">🥤</div><div class="recompensa-titulo">Copo Reutilizável</div><div class="recompensa-pontos">60 EcoPontos</div><button class="btn btn-resgatar" onclick="resgatarRecompensa(60, 'Copo Reutilizável')">Resgatar</button></div>
+                    <div class="card-recompensa" data-pontos="100"><div class="recompensa-icone">🌳</div><div class="recompensa-titulo">Plante uma Árvore</div><div class="recompensa-pontos">100 EcoPontos</div><button class="btn btn-resgatar" onclick="resgatarRecompensa(100, 'Plante uma Árvore')">Resgatar</button></div>
+                    <div class="card-recompensa" data-pontos="200"><div class="recompensa-icone">🏆</div><div class="recompensa-titulo">Certificado Eco-Herói</div><div class="recompensa-pontos">200 EcoPontos</div><button class="btn btn-resgatar" onclick="resgatarRecompensa(200, 'Certificado Eco-Herói')">Resgatar</button></div>
+                </div>
+            </section>
+
+            <section id="historico-cop" class="tab-content">
+                <h2>📜 História das Conferências do Clima (COPs)</h2>
                 <div class="cop-timeline">
-                    <!-- Antecedentes -->
-                    <div class="timeline-item">
-                        <div class="timeline-year">1992</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #1e88e5, #43a047);">
-                                🌍 RIO-92
-                            </div>
-                            <h3>🌍 Conferência do Rio</h3>
-                            <p><strong>Rio de Janeiro, Brasil</strong></p>
-                            <p>Conferência das Nações Unidas sobre Meio Ambiente e Desenvolvimento. Marco inicial que criou a Convenção-Quadro das Nações Unidas sobre Mudança do Clima (UNFCCC).</p>
-                        </div>
-                    </div>
-
-                    <!-- COP 1-10 -->
-                    <div class="timeline-item">
-                        <div class="timeline-year">1995</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #000, #d4af37);">
-                                🚀 COP 1
-                            </div>
-                            <h3>🚀 COP 1</h3>
-                            <p><strong>Berlim, Alemanha</strong></p>
-                            <p>Primeira Conferência das Partes. Estabelecimento do Mandato de Berlim para negociar metas de redução de emissões para países desenvolvidos.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">1996</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #1976d2, #ffffff);">
-                                🇨🇭 COP 2
-                            </div>
-                            <h3>🏔️ COP 2</h3>
-                            <p><strong>Genebra, Suíça</strong></p>
-                            <p>Declaração de Genebra enfatiza a urgência de ação climática baseada em evidências científicas do IPCC.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">1997</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #d32f2f, #ffffff);">
-                                📋 COP 3
-                            </div>
-                            <h3>📋 COP 3 - Marco Histórico</h3>
-                            <p><strong>Kyoto, Japão</strong></p>
-                            <p>Protocolo de Kyoto: primeiro acordo internacional com metas obrigatórias de redução de emissões (5,2% abaixo dos níveis de 1990) para países desenvolvidos.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">1998</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #8b4513, #daa520);">
-                                🏛️ COP 4
-                            </div>
-                            <h3>🏛️ COP 4</h3>
-                            <p><strong>Buenos Aires, Argentina</strong></p>
-                            <p>Plano de Ação de Buenos Aires para implementar o Protocolo de Kyoto e fortalecer os mecanismos de flexibilidade.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">1999</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #000080, #ffffff);">
-                                🌊 COP 5
-                            </div>
-                            <h3>🌊 COP 5</h3>
-                            <p><strong>Bonn, Alemanha</strong></p>
-                            <p>Discussões técnicas sobre implementação do Protocolo de Kyoto e desenvolvimento dos mecanismos de desenvolvimento limpo (MDL).</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2000</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #1565c0, #ffffff);">
-                                💻 COP 6
-                            </div>
-                            <h3>💻 COP 6</h3>
-                            <p><strong>Haia, Holanda</strong></p>
-                            <p>Negociações sobre sumidouros de carbono e mecanismos de flexibilidade do Protocolo de Kyoto. Sessão suspensa devido a desacordos.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2001</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #2e7d32, #81c784);">
-                                🌿 COP 6.5 / COP 7
-                            </div>
-                            <h3>🌿 COP 6.5 e COP 7</h3>
-                            <p><strong>Bonn, Alemanha / Marrakech, Marrocos</strong></p>
-                            <p>COP 6.5 (Bonn): Acordo sobre implementação do Protocolo de Kyoto. COP 7 (Marrakech): Finalização das regras operacionais detalhadas.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2002</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #8bc34a, #4caf50);">
-                                🏙️ COP 8
-                            </div>
-                            <h3>🏙️ COP 8</h3>
-                            <p><strong>Nova Delhi, Índia</strong></p>
-                            <p>Declaração de Delhi enfatiza a importância do desenvolvimento sustentável e adaptação às mudanças climáticas.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2003</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #9c27b0, #e1bee7);">
-                                🎭 COP 9
-                            </div>
-                            <h3>🎭 COP 9</h3>
-                            <p><strong>Milão, Itália</strong></p>
-                            <p>Discussões sobre adaptação, tecnologia limpa e o futuro do regime climático internacional pós-2012.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2004</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #795548, #d7ccc8);">
-                                🌆 COP 10
-                            </div>
-                            <h3>🌆 COP 10</h3>
-                            <p><strong>Buenos Aires, Argentina</strong></p>
-                            <p>Programa de Trabalho de Buenos Aires sobre adaptação e medidas de resposta às mudanças climáticas.</p>
-                        </div>
-                    </div>
-
-                    <!-- COP 11-20 -->
-                    <div class="timeline-item">
-                        <div class="timeline-year">2005</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #f44336, #ffcdd2);">
-                                🍁 COP 11
-                            </div>
-                            <h3>🍁 COP 11</h3>
-                            <p><strong>Montreal, Canadá</strong></p>
-                            <p>Entrada em vigor do Protocolo de Kyoto. Início das negociações para o período pós-2012.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2006</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #ff9800, #ffe0b2);">
-                                🏝️ COP 12
-                            </div>
-                            <h3>🏝️ COP 12</h3>
-                            <p><strong>Nairobi, Quênia</strong></p>
-                            <p>Foco na adaptação para países em desenvolvimento e revisão do Protocolo de Kyoto.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2007</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #2196f3, #bbdefb);">
-                                🌺 COP 13
-                            </div>
-                            <h3>🌺 COP 13</h3>
-                            <p><strong>Bali, Indonésia</strong></p>
-                            <p>Plano de Ação de Bali lança negociações para um acordo climático pós-2012, incluindo países em desenvolvimento.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2008</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #607d8b, #cfd8dc);">
-                                🏰 COP 14
-                            </div>
-                            <h3>🏰 COP 14</h3>
-                            <p><strong>Poznan, Polônia</strong></p>
-                            <p>Progressos nas negociações do Plano de Ação de Bali e discussões sobre financiamento climático.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2009</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #e53935, #ffffff);">
-                                🤝 COP 15
-                            </div>
-                            <h3>🤝 COP 15 - Expectativa Global</h3>
-                            <p><strong>Copenhague, Dinamarca</strong></p>
-                            <p>Acordo de Copenhague (não vinculante) reconhece a necessidade de limitar o aquecimento a 2°C. Compromisso de US$ 100 bilhões anuais até 2020.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2010</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #4caf50, #81c784);">
-                                🇲🇽 COP 16
-                            </div>
-                            <h3>🌮 COP 16</h3>
-                            <p><strong>Cancún, México</strong></p>
-                            <p>Acordos de Cancún estabelecem o Fundo Verde do Clima e o objetivo de 2°C. Criação do mecanismo REDD+.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2011</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #ff5722, #ff8a65);">
-                                🏖️ COP 17
-                            </div>
-                            <h3>🏖️ COP 17</h3>
-                            <p><strong>Durban, África do Sul</strong></p>
-                            <p>Plataforma de Durban estabelece cronograma para negociar um novo acordo global até 2015, que entraria em vigor em 2020.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2012</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #009688, #4db6ac);">
-                                🏖️ COP 18
-                            </div>
-                            <h3>🏖️ COP 18</h3>
-                            <p><strong>Doha, Catar</strong></p>
-                            <p>Emenda de Doha estende o Protocolo de Kyoto até 2020. Estabelecimento de perdas e danos como tema oficial.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2013</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #9c27b0, #ce93d8);">
-                                🌋 COP 19
-                            </div>
-                            <h3>🌋 COP 19</h3>
-                            <p><strong>Varsóvia, Polônia</strong></p>
-                            <p>Mecanismo Internacional de Varsóvia para Perdas e Danos. Avanços no financiamento climático e REDD+.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2014</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #3f51b5, #9fa8da);">
-                                🌎 COP 20
-                            </div>
-                            <h3>🌎 COP 20</h3>
-                            <p><strong>Lima, Peru</strong></p>
-                            <p>Chamada de Lima para Ação Climática estabelece base para as contribuições nacionais (INDCs) para o Acordo de Paris.</p>
-                        </div>
-                    </div>
-
-                    <!-- COP 21-29 -->
-                    <div class="timeline-item">
-                        <div class="timeline-year">2015</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #1565c0, #42a5f5);">
-                                🌟 COP 21
-                            </div>
-                            <h3>🌟 COP 21 - Marco Histórico</h3>
-                            <p><strong>Paris, França</strong></p>
-                            <p>Acordo de Paris: marco histórico com compromisso de limitar aquecimento a bem abaixo de 2°C, buscando 1,5°C. 196 países assinam.</p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-item">
-                        <div class="timeline-year">2016</div>
-                        <div class="timeline-content">
-                            <div class="cop-card-image" style="background: linear-gradient(135deg, #e91e63, #f8bbd9);">
-                                🌍 COP 22
-                            </div>
-                            <h3>🌍 COP 22</h3>
-                            <p><strong>Marrakech, Marrocos</strong></p>
-                            <p>C
+                    <div class="timeline-item"><div class="timeline-year">1997</div><div class="timeline-content"><h3>📋 COP 3 - Protocolo de Kyoto</h3><p>Adotou o primeiro acordo com metas obrigatórias de redução de emissões para países industrializados.</p></div></div>
+                    <div class="timeline-item"><div class="timeline-year">2009</div><div class="timeline-content"><h3>🤝 COP 15 - Copenhague</h3><p>Reconheceu a necessidade de limitar o aquecimento a 2°C, mas sem metas obrigatórias.</p></div></div>
+                    <div class="timeline-item"><div class="timeline-year">2015</div><div class="timeline-content"><h3>🌟 COP 21 - Acordo de Paris</h3><p>Marco histórico com 196 países comprometendo-se a limitar o aquecimento global bem abaixo de 2°C.</p></div></div>
+                    <div class="timeline-item"><div class="timeline-year">2021</div><div class="timeline-content"><h3>🔥 COP 26 - Glasgow</h3><p>Pela primeira vez, mencionou a necessidade de reduzir o uso de carvão e pediu metas mais ambiciosas.</p></div></div>
+                    <div class="timeline-item"><div class="timeline-year">2022</div><div class="timeline-content"><h3>💸 COP 27 - Perdas e Danos</h3><p>Conquista histórica com a criação de um fundo para apoiar países vulneráveis afetados por desastres climáticos.</p></div></div>
+                    <div class="timeline-item"><div class="timeline-year">2023</div><div class="timeline-content"><h3>📊 COP 28 - Balanço Global</h3><p>Primeira avaliação do progresso global, com um apelo inédito para a "transição para longe dos combustíveis fósseis".</p></div></div>
+                    <div class="timeline-item"><div class="timeline-year" style="background: var(--amarelo-brasil); color: var(--cinza-escuro);">2025</div><div class="timeline-content" style="border-color: var(--amarelo-brasil);"><h3>🌳 COP 30 - A COP da Amazônia</h3><p>Momento crucial para revisar as metas climáticas, com foco na bioeconomia, proteção das florestas e justiça climática.</p></div></div>
+                </div>
+            </section>
         </div>
     </main>
 
@@ -1274,167 +873,98 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h3>🌍 COP 30 Brasil</h3>
-                    <ul>
-                        <li><a href="#">Sobre a COP 30</a></li>
-                        <li><a href="#">Participação</a></li>
-                        <li><a href="#">Agenda</a></li>
-                        <li><a href="#">Notícias</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>♻️ Sustentabilidade</h3>
-                    <ul>
-                        <li><a href="#">Como Reciclar</a></li>
-                        <li><a href="#">Dicas Ambientais</a></li>
-                        <li><a href="#">Energia Limpa</a></li>
-                        <li><a href="#">Consumo Consciente</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>🎮 EcoGame</h3>
-                    <ul>
-                        <li><a href="#">Como Jogar</a></li>
-                        <li><a href="#">Recompensas</a></li>
-                        <li><a href="#">Ranking</a></li>
-                        <li><a href="#">Desafios</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>📞 Contato</h3>
-                    <ul>
-                        <li><a href="#">Fale Conosco</a></li>
-                        <li><a href="#">Parcerias</a></li>
-                        <li><a href="#">Imprensa</a></li>
-                        <li><a href="#">Suporte</a></li>
-                    </ul>
-                </div>
+                <div class="footer-section"><h3>🌍 COP 30 Brasil</h3><ul><li><a onclick="navegarParaTab('cop30')">Sobre a COP 30</a></li><li><a onclick="navegarParaTab('cop30')">Participação</a></li><li><a onclick="navegarParaTab('cop30')">Agenda</a></li><li><a onclick="navegarParaTab('cop30')">Notícias</a></li></ul></div>
+                <div class="footer-section"><h3>♻️ Sustentabilidade</h3><ul><li><a onclick="navegarParaTab('reciclagem')">Como Reciclar</a></li><li><a onclick="navegarParaTab('meio-ambiente')">Dicas Ambientais</a></li><li><a onclick="navegarParaTab('sos-plastico')">SOS Plástico</a></li><li><a onclick="navegarParaTab('meio-ambiente')">Consumo Consciente</a></li></ul></div>
+                <div class="footer-section"><h3>🎮 EcoGame</h3><ul><li><a onclick="navegarParaTab('jogo')">Como Jogar</a></li><li><a onclick="navegarParaTab('recompensas')">Recompensas</a></li><li><a onclick="navegarParaTab('jogo')">Ranking</a></li><li><a onclick="navegarParaTab('jogo')">Desafios</a></li></ul></div>
+                <div class="footer-section"><h3>📞 Contato</h3><ul><li><a href="#">Fale Conosco</a></li><li><a href="#">Parcerias</a></li><li><a href="#">Imprensa</a></li><li><a href="#">Suporte</a></li></ul></div>
             </div>
             <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem; margin-top: 2rem;">
-                <p>&copy; 2025 COP 30 Brasil. Todos os direitos reservados. | Desenvolvido para um planeta mais sustentável 🌱</p>
+                <p>&copy; <span id="anoAtual"></span> COP 30 Brasil. Todos os direitos reservados. | Desenvolvido para um planeta mais sustentável 🌱</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Variáveis globais
         let pontos = 0;
         let lixosDescartados = 0;
+        const pontosDisplay = document.getElementById('pontosDisplay');
+        const contadorLixoDisplay = document.getElementById('contadorLixo');
+        const progressoJogoFill = document.getElementById('progressoJogo');
+        const pontosRankingDisplay = document.getElementById('pontosRanking');
+        const btnVoltarTopo = document.getElementById('btnVoltarTopo');
 
-        // Carregar dados salvos
-        function carregarDados() {
-            const pontosString = localStorage.getItem('ecopontos') || '0';
-            const lixosString = localStorage.getItem('lixosDescartados') || '0';
-            
-            pontos = parseInt(pontosString);
-            lixosDescartados = parseInt(lixosString);
-            
-            atualizarDisplay();
-        }
-
-        // Salvar dados
-        function salvarDados() {
-            // Como localStorage não é suportado em artifacts, vamos usar variáveis em memória
-            // Em um ambiente real, descomente as linhas abaixo:
-            // localStorage.setItem('ecopontos', pontos.toString());
-            // localStorage.setItem('lixosDescartados', lixosDescartados.toString());
-        }
-
-        // Atualizar displays
         function atualizarDisplay() {
-            document.getElementById('pontosDisplay').textContent = pontos;
-            document.getElementById('contadorLixo').textContent = lixosDescartados;
-            
-            // Atualizar progresso do jogo
-            const progressoJogo = (lixosDescartados / 100) * 100;
-            document.getElementById('progressoJogo').style.width = Math.min(progressoJogo, 100) + '%';
-            
+            pontosDisplay.textContent = pontos;
+            contadorLixoDisplay.textContent = lixosDescartados;
+            pontosRankingDisplay.textContent = `${pontos} Pontos`;
+            const progressoJogo = Math.min((lixosDescartados / 100) * 100, 100);
+            progressoJogoFill.style.width = progressoJogo + '%';
             atualizarRecompensas();
         }
-
-        // Mostrar tab
-        function mostrarTab(tabId) {
-            // Remover classe ativo de todas as tabs
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('ativo'));
-            
-            // Remover classe ativo de todos os links
-            const links = document.querySelectorAll('.nav-link');
-            links.forEach(link => link.classList.remove('ativo'));
-            
-            // Ativar tab selecionada
-            document.getElementById(tabId).classList.add('ativo');
-            
-            // Ativar link correspondente
-            event.target.classList.add('ativo');
+        
+        function navegarParaTab(tabId) {
+            mostrarTab(tabId);
+            const elemento = document.getElementById(tabId);
+            if(elemento) {
+                 const headerOffset = 120; // altura do header + nav
+                 const elementPosition = elemento.getBoundingClientRect().top;
+                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                 window.scrollTo({
+                     top: offsetPosition,
+                     behavior: "smooth"
+                 });
+            }
         }
 
-        // Jogar lixo na lixeira
+        function mostrarTab(tabId, event) {
+            if(event) event.preventDefault();
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('ativo'));
+            document.getElementById(tabId)?.classList.add('ativo');
+            
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('ativo'));
+            document.querySelector(`.nav-link[href="#${tabId}"]`)?.classList.add('ativo');
+        }
+
         function jogarLixo() {
             pontos++;
             lixosDescartados++;
-            
-            // Efeito visual na lixeira
             const lixeira = document.querySelector('.lixeira-virtual');
             lixeira.style.transform = 'scale(0.9) rotate(10deg)';
-            setTimeout(() => {
-                lixeira.style.transform = 'scale(1) rotate(0deg)';
-            }, 200);
-            
+            setTimeout(() => { lixeira.style.transform = 'scale(1) rotate(0deg)'; }, 200);
             mostrarFeedback();
             atualizarDisplay();
-            salvarDados();
-            
-            // Efeitos especiais para marcos
             if (lixosDescartados % 10 === 0) {
-                mostrarModalRecompensa(`🎉 Parabéns! Você descartou ${lixosDescartados} lixos corretamente! Continue salvando o planeta!`);
+                mostrarModalRecompensa(`🎉 Parabéns! Você descartou ${lixosDescartados} lixos corretamente!`);
             }
         }
 
-        // Mostrar feedback visual
         function mostrarFeedback() {
             const feedback = document.getElementById('feedbackVisual');
             feedback.classList.add('show');
-            
-            setTimeout(() => {
-                feedback.classList.remove('show');
-            }, 2000);
+            setTimeout(() => { feedback.classList.remove('show'); }, 2000);
         }
 
-        // Resgatar recompensa
-        function resgatarRecompensa(custoEco, nomeRecompensa) {
-            if (pontos >= custoEco) {
-                pontos -= custoEco;
+        function resgatarRecompensa(custo, nome) {
+            if (pontos >= custo) {
+                pontos -= custo;
                 atualizarDisplay();
-                salvarDados();
-                
-                mostrarModalRecompensa(`🎁 Você resgatou: ${nomeRecompensa}! Parabéns por contribuir com o meio ambiente!`);
+                mostrarModalRecompensa(`🎁 Você resgatou: ${nome}!`);
             } else {
-                mostrarModalRecompensa(`❌ EcoPontos insuficientes! Você precisa de ${custoEco} pontos mas tem apenas ${pontos}.`);
+                mostrarModalRecompensa(`❌ EcoPontos insuficientes! Você precisa de ${custo} pontos.`);
             }
         }
 
-        // Atualizar status das recompensas
         function atualizarRecompensas() {
-            const cards = document.querySelectorAll('.card-recompensa');
-            cards.forEach(card => {
-                const custoEco = parseInt(card.dataset.pontos);
+            document.querySelectorAll('.card-recompensa').forEach(card => {
+                const custo = parseInt(card.dataset.pontos);
                 const botao = card.querySelector('.btn-resgatar');
-                
-                if (pontos >= custoEco) {
-                    card.classList.add('disponivel');
-                    card.classList.remove('indisponivel');
-                    botao.disabled = false;
-                } else {
-                    card.classList.add('indisponivel');
-                    card.classList.remove('disponivel');
-                    botao.disabled = true;
-                }
+                const disponivel = pontos >= custo;
+                card.classList.toggle('disponivel', disponivel);
+                card.classList.toggle('indisponivel', !disponivel);
+                botao.disabled = !disponivel;
             });
         }
 
-        // Modal de recompensa
         function mostrarModalRecompensa(mensagem) {
             document.getElementById('mensagemModal').textContent = mensagem;
             document.getElementById('modalRecompensa').style.display = 'block';
@@ -1443,54 +973,66 @@
         function fecharModal() {
             document.getElementById('modalRecompensa').style.display = 'none';
         }
-
-        // Fechar modal clicando fora
-        window.onclick = function(event) {
-            const modal = document.getElementById('modalRecompensa');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
+        
+        function voltarAoTopo() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Animações ao rolar a página
-        function animarElementosVisiveis() {
-            const elementos = document.querySelectorAll('.dica-card, .card-recompensa, .stat-item');
-            
-            elementos.forEach(elemento => {
-                const rect = elemento.getBoundingClientRect();
-                const estaVisivel = rect.top < window.innerHeight && rect.bottom > 0;
-                
-                if (estaVisivel && !elemento.classList.contains('animado')) {
-                    elemento.style.animation = 'fadeIn 0.6s ease forwards';
-                    elemento.classList.add('animado');
-                }
-            });
-        }
-
-        // Event listeners
-        document.addEventListener('DOMContentLoaded', function() {
-            carregarDados();
-            animarElementosVisiveis();
+        // --- Animações e Eventos ---
+        window.addEventListener('scroll', () => {
+             btnVoltarTopo.style.display = (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) ? "block" : "none";
         });
 
-        window.addEventListener('scroll', animarElementosVisiveis);
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ano atual
+            document.getElementById('anoAtual').textContent = new Date().getFullYear();
+            
+            // Lógica do Observer para animações e menu ativo
+            const observerOptions = { rootMargin: '-40% 0px -60% 0px' };
+            
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const navLink = document.querySelector(`.nav-link[href="#${id}"]`);
 
-        // Adicionar alguns pontos iniciais para demonstração
-        setTimeout(() => {
-            if (pontos === 0) {
-                pontos = 25;
-                atualizarDisplay();
-                mostrarFeedback();
-            }
-        }, 1000);
+                    if (entry.isIntersecting) {
+                        // Ativa link do menu
+                        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('ativo'));
+                        if (navLink) navLink.classList.add('ativo');
 
-        // Simular progresso ambiental
-        setInterval(() => {
-            const progressoAtual = parseFloat(document.getElementById('progressoAmbiental').style.width);
-            if (progressoAtual < 100) {
-                document.getElementById('progressoAmbiental').style.width = (progressoAtual + 0.1) + '%';
-            }
-        }, 5000);
+                        // Anima contadores
+                        entry.target.querySelectorAll('h3[data-count]').forEach(counter => {
+                            if (counter.dataset.animated) return;
+                            counter.dataset.animated = true;
+                            const target = +counter.dataset.count;
+                            let count = 0;
+                            const duration = 1500;
+                            const stepTime = 20;
+                            const increment = target * stepTime / duration;
+
+                            const timer = setInterval(() => {
+                                count += increment;
+                                if (count >= target) {
+                                    clearInterval(timer);
+                                    counter.innerText = target.toLocaleString('pt-BR');
+                                } else {
+                                     counter.innerText = (target % 1 === 0) ? Math.ceil(count).toLocaleString('pt-BR') : count.toFixed(1).replace('.', ',');
+                                }
+                            }, stepTime);
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.tab-content').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Inicia com alguns pontos
+            pontos = 25;
+            atualizarDisplay();
+        });
+        
     </script>
 </body>
 </html>
