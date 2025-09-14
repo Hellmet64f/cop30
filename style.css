@@ -1,39 +1,31 @@
 /* style.css */
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Teko:wght@700&display=swap');
 
 :root {
-    --primary-color: #2C5F2D; /* Verde escuro da floresta */
-    --secondary-color: #97BC62; /* Verde claro vibrante */
-    --accent-color: #FFD700; /* Amarelo dourado como o sol */
+    --primary-color: #004d40; /* Verde Floresta Escuro */
+    --secondary-color: #00796b; /* Verde Médio */
+    --accent-color: #ffc107; /* Amarelo Âmbar */
     --text-color: #333;
-    --bg-color: #f4f4f4;
+    --light-gray: #f5f5f5;
     --white-color: #FFFFFF;
 }
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-color);
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--light-gray);
     color: var(--text-color);
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    overflow: hidden;
-    padding: 20px 0;
-}
+.container { width: 90%; max-width: 1200px; margin: auto; }
 
 /* --- Header e Navegação --- */
 header {
-    background: var(--primary-color);
-    color: var(--white-color);
-    padding: 1rem 0;
-    border-bottom: 5px solid var(--secondary-color);
+    background: var(--white-color);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 0.75rem 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -45,76 +37,154 @@ header .container {
     align-items: center;
 }
 
-header .logo {
-    font-size: 1.8rem;
-    font-weight: 900;
-    text-decoration: none;
-    color: var(--white-color);
+.logo img {
+    max-height: 50px; /* Controla a altura da sua logo */
+    width: auto;
 }
 
-header nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-}
-
-header nav ul li {
-    margin-left: 25px;
-}
-
-header nav ul li a {
-    color: var(--white-color);
+nav ul { list-style: none; display: flex; }
+nav ul li { margin-left: 30px; }
+nav ul li a {
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: 700;
-    transition: color 0.3s ease;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+nav ul li a:hover, nav ul li a.active {
+    color: var(--secondary-color);
+    border-bottom-color: var(--accent-color);
 }
 
-header nav ul li a:hover, header nav ul li a.active {
-    color: var(--accent-color);
-}
-
-/* --- Seções Padrão --- */
-.section {
-    padding: 60px 0;
-}
-
-.section-title {
+/* --- Herói --- */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.pexels.com/photos/3727255/pexels-photo-3727255.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    color: var(--primary-color);
-    font-weight: 900;
+    color: var(--white-color);
+    padding: 0 20px;
 }
+.hero h1 {
+    font-family: 'Teko', sans-serif;
+    font-size: 5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+}
+.hero p { font-size: 1.3rem; max-width: 700px; margin-bottom: 30px; }
 
-/* --- Botões --- */
+/* --- Botão Principal --- */
 .btn {
     display: inline-block;
-    padding: 12px 25px;
-    background: var(--secondary-color);
+    padding: 15px 35px;
+    background: var(--accent-color);
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 700;
-    border-radius: 5px;
+    border-radius: 50px;
     transition: all 0.3s ease;
-    border: 2px solid var(--primary-color);
-    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
-
 .btn:hover {
-    background: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* --- Seções --- */
+.section { padding: 80px 0; }
+.section-title {
+    text-align: center;
+    font-family: 'Teko', sans-serif;
+    font-size: 3.5rem;
+    margin-bottom: 50px;
+    color: var(--primary-color);
+}
+
+/* --- Página Sobre --- */
+.about-content { max-width: 800px; margin: 0 auto; }
+.about-content h3 {
+    font-family: 'Teko', sans-serif;
+    font-size: 2.2rem;
+    color: var(--secondary-color);
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/* --- Recompensas --- */
+.rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.reward-card {
+    background: var(--white-color);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.reward-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+.reward-card img.reward-photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.reward-card-content { padding: 25px; }
+.reward-card-content img.partner-logo { max-height: 40px; margin-bottom: 15px; }
+.reward-card h3 { font-size: 1.5rem; color: var(--primary-color); }
+.reward-card .price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    margin: 15px 0;
+}
+
+/* --- JOGO --- */
+#game-section { text-align: center; }
+#game-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 600px;
+    background: linear-gradient(#87CEEB, #A1C4FD);
+    margin: 30px auto;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+#ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background: #7C4700;
+}
+#score-board {
+    font-family: 'Teko', sans-serif;
+    font-size: 3rem;
     color: var(--white-color);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
-
-.btn-accent {
-    background: var(--accent-color);
-    border-color: var(--accent-color);
+.trash-item {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
 }
-
-.btn-accent:hover {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-}
+.trash-item:hover { transform: scale(1.1); }
 
 /* --- Footer --- */
 footer {
@@ -123,111 +193,4 @@ footer {
     text-align: center;
     padding: 2rem 0;
     margin-top: 40px;
-}
-
-footer p {
-    margin: 0;
-}
-
-/* --- Estilos Específicos da Página Inicial --- */
-.hero {
-    background: url('https://images.unsplash.com/photo-1588196749339-368a9b3a3d38?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-    height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: var(--white-color);
-    position: relative;
-}
-
-.hero::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-}
-
-.hero-content {
-    z-index: 1;
-}
-
-.hero h1 {
-    font-size: 4rem;
-    font-weight: 900;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-.hero p {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
-}
-
-/* --- Impactômetro --- */
-.impact-meter {
-    background: var(--white-color);
-    text-align: center;
-}
-
-.impact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-.impact-item {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-}
-
-.impact-item h3 {
-    font-size: 3rem;
-    color: var(--secondary-color);
-    margin: 0 0 10px 0;
-}
-
-.impact-item p {
-    font-size: 1.2rem;
-    color: var(--primary-color);
-    margin: 0;
-}
-
-/* --- Recompensas Grid --- */
-.rewards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-.reward-card {
-    background: var(--white-color);
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    text-align: center;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.reward-card img {
-    max-width: 100px;
-    margin: 0 auto 15px auto;
-}
-
-.reward-card h3 {
-    color: var(--primary-color);
-    margin: 10px 0;
-}
-
-.reward-card .price {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--secondary-color);
-    margin-bottom: 20px;
 }
