@@ -1,142 +1,937 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COP30 - Belém 2025 | Simulador Herói do Clima v2.0</title>
-    <meta name="description" content="Uma experiência aprimorada! Jogue o novo simulador 3D da COP30 com gráficos melhorados, jogabilidade dinâmica e recompensas reais.">
-    <meta name="keywords" content="COP30, Belém, Mudanças Climáticas, Sustentabilidade, Reciclagem, Jogo 3D, Recompensas, Three.js">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>COP 30 Brasil - Portal Oficial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --verde-brasil: #168821;
+            --verde-escuro: #0d5016;
+            --verde-copa: #228B22;
+            --amarelo-brasil: #FFCD07;
+            --azul-brasil: #2E4B75;
+            --cinza-claro: #F8F8F8;
+            --cinza-medio: #E5E5E5;
+            --cinza-escuro: #333333;
+            --branco: #FFFFFF;
+            --verde-claro: #90EE90;
+            --laranja: #FF6B35;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--cinza-escuro);
+            background-color: var(--cinza-claro);
+        }
+
+        .header-gov {
+            background: linear-gradient(135deg, var(--verde-brasil), var(--verde-copa));
+            color: var(--branco);
+            padding: 1rem 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo-gov {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .brasao {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--amarelo-brasil), #FFE082);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--verde-brasil);
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .titulo-site {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .subtitulo {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: normal;
+        }
+
+        .pontuacao-header {
+            background: rgba(255,255,255,0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .pontos-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--amarelo-brasil);
+        }
+
+        .nav-principal {
+            background-color: var(--verde-escuro);
+            padding: 0;
+        }
+
+        .nav-lista {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            margin: 0;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 1rem 1.5rem;
+            color: var(--branco);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.ativo {
+            background-color: var(--amarelo-brasil);
+            color: var(--cinza-escuro);
+            border-bottom-color: var(--laranja);
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            background-color: var(--branco);
+            padding: 2rem 0;
+            min-height: 70vh;
+        }
+
+        .hero-cop30 {
+            background: linear-gradient(135deg, var(--verde-copa), var(--azul-brasil));
+            color: var(--branco);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cop30::before {
+            content: "🌱";
+            position: absolute;
+            font-size: 8rem;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .tabs-container {
+            margin: 2rem 0;
+        }
+
+        .tabs-nav {
+            display: flex;
+            background: var(--cinza-medio);
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--cinza-escuro);
+            min-width: 150px;
+        }
+
+        .tab-button.ativo {
+            background: var(--verde-brasil);
+            color: var(--branco);
+            transform: translateY(-2px);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--branco);
+            padding: 2rem;
+            border: 2px solid var(--cinza-medio);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .tab-content.ativo {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .jogo-reciclagem {
+            background: linear-gradient(135deg, var(--verde-claro), var(--verde-brasil));
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .lixeira-virtual {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #444, #666);
+            border-radius: 20px;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 4rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .lixeira-virtual:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+        }
+
+        .contador-lixo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--verde-escuro);
+            margin: 1rem 0;
+        }
+
+        .grid-recompensas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .card-recompensa {
+            background: var(--branco);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .card-recompensa:hover {
+            border-color: var(--verde-brasil);
+            transform: translateY(-4px);
+        }
+
+        .card-recompensa.disponivel {
+            border-color: var(--verde-brasil);
+            background: linear-gradient(135deg, var(--branco), var(--verde-claro));
+        }
+
+        .card-recompensa.indisponivel {
+            opacity: 0.6;
+            background: var(--cinza-claro);
+        }
+
+        .recompensa-icone {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .recompensa-titulo {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--verde-brasil);
+            margin-bottom: 0.5rem;
+        }
+
+        .recompensa-pontos {
+            color: var(--laranja);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 0.5rem;
+        }
+
+        .btn-primario {
+            background: linear-gradient(135deg, var(--verde-brasil), var(--verde-copa));
+            color: var(--branco);
+        }
+
+        .btn-primario:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(22, 136, 33, 0.3);
+        }
+
+        .btn-resgatar {
+            background: linear-gradient(135deg, var(--laranja), #ff8c42);
+            color: var(--branco);
+        }
+
+        .btn-resgatar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-resgatar:disabled {
+            background: var(--cinza-medio);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .dicas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .dica-card {
+            background: var(--branco);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--verde-brasil);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .dica-card h3 {
+            color: var(--verde-brasil);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .estatisticas {
+            background: linear-gradient(135deg, var(--azul-brasil), #4a6fa5);
+            color: var(--branco);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--amarelo-brasil);
+        }
+
+        .feedback-visual {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--verde-brasil);
+            color: var(--branco);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .feedback-visual.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-lista {
+                flex-direction: column;
+            }
+            
+            .tabs-nav {
+                flex-direction: column;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .grid-recompensas {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Feedback Visual -->
+    <div id="feedbackVisual" class="feedback-visual">
+        <strong>🎉 +1 Ponto!</strong> Continue salvando o planeta!
+    </div>
 
-    <!-- Cabeçalho e Navegação -->
-    <header class="main-header">
+    <!-- Header COP 30 -->
+    <header class="header-gov">
         <div class="container">
-            <div class="logo-container">
-                <img src="https://i.imgur.com/P6CHbxn.png" alt="Logo COP30" class="logo">
+            <div class="header-content">
+                <div class="logo-gov">
+                    <div class="brasao">🌍</div>
+                    <div>
+                        <h1 class="titulo-site">COP 30 Brasil 2025</h1>
+                        <p class="subtitulo">Amazônia - Coração do Mundo</p>
+                    </div>
+                </div>
+                <div class="pontuacao-header">
+                    <div>EcoPontos</div>
+                    <div class="pontos-display" id="pontosDisplay">0</div>
+                </div>
             </div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#about-cop30">Sobre a COP30</a></li>
-                    <li><a href="#simulator">Simulador 3D</a></li>
-                    <li><a href="#rewards">Recompensas</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
 
-    <!-- Seção Principal de Boas-Vindas -->
-    <section id="hero" class="hero-section">
+    <!-- Navegação -->
+    <nav class="nav-principal">
         <div class="container">
-            <h1>Seja um Herói do Clima na COP30</h1>
-            <p>Junte-se a nós em Belém 2025. Aprenda, jogue e faça a diferença.</p>
-            <a href="#simulator" class="cta-button">Comece a Coletar Agora!</a>
+            <ul class="nav-lista">
+                <li class="nav-item">
+                    <a href="#" class="nav-link ativo" onclick="mostrarTab('cop30')">COP 30</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="mostrarTab('reciclagem')">Como Reciclar</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="mostrarTab('meio-ambiente')">Meio Ambiente</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="mostrarTab('jogo')">EcoGame</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="mostrarTab('recompensas')">Recompensas</a>
+                </li>
+            </ul>
         </div>
-    </section>
+    </nav>
 
-    <!-- Seção Sobre a COP30 -->
-    <section id="about-cop30" class="content-section">
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
         <div class="container">
-            <h2>O Que é a COP30?</h2>
-            <div class="about-content">
-                <p>A 30ª Conferência das Partes da Convenção-Quadro das Nações Unidas sobre a Mudança do Clima (COP30) será realizada em Belém, no Brasil, de 10 a 21 de novembro de 2025. [2, 5] Este evento crucial reunirá líderes mundiais, cientistas, organizações e a sociedade civil para negociar e acelerar ações contra a crise climática. [4, 6] O principal objetivo é fortalecer o compromisso global para limitar o aquecimento a 1,5°C, conforme o Acordo de Paris. [2]</p>
-                <p>A escolha de Belém, uma cidade no coração da Amazônia, simboliza a urgência em proteger as florestas tropicais e valorizar o conhecimento dos povos indígenas na luta contra as mudanças climáticas. [7] Durante a conferência, os países deverão apresentar seus novos planos de ação climática, conhecidos como Contribuições Nacionalmente Determinadas (NDCs). [4, 7]</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Seção do Simulador 3D -->
-    <section id="simulator" class="simulator-section">
-        <div class="container">
-            <h2>Simulador 3D: Herói do Clima (Versão Melhorada)</h2>
-            <p class="subtitle">Colete o máximo de lixo que puder em 2 minutos. Segure SHIFT para correr!</p>
-
-            <div id="game-wrapper">
-                <div id="simulator-container">
-                    <!-- O canvas do Three.js será inserido aqui -->
-                </div>
-
-                <!-- Interface do Jogo (Overlays) -->
-                <div id="loading-screen">
-                    <div class="spinner"></div>
-                    <p>Carregando o mundo...</p>
-                </div>
-
-                <div id="start-menu">
-                    <h2>Missão: Limpeza Global</h2>
-                    <p>Você tem <strong>2 minutos</strong> para coletar o máximo de lixo possível. Cada item conta!</p>
-                    <button id="start-button" class="cta-button">Iniciar Jogo</button>
-                    <div class="instructions">
-                        <h3>Controles</h3>
-                        <p><strong>W, A, S, D:</strong> Mover | <strong>Mouse:</strong> Olhar | <strong>Clique:</strong> Coletar | <strong>SHIFT:</strong> Correr</p>
-                    </div>
-                </div>
-
-                <div id="game-hud">
-                    <div class="hud-item">
-                        <strong>Pontos:</strong> <span id="hud-score">0</span>
-                    </div>
-                    <div class="hud-item">
-                        <strong>Tempo:</strong> <span id="hud-time">02:00</span>
-                    </div>
-                    <div class="stamina-bar-container">
-                        <strong>Vigor:</strong>
-                        <div id="hud-stamina-bar"></div>
-                    </div>
-                    <div id="score-feedback"></div>
-                </div>
-
-                <div id="game-over-screen">
-                    <h2>Fim de Jogo!</h2>
-                    <p>Sua pontuação final foi:</p>
-                    <h3 id="final-score">0</h3>
-                    <p>Obrigado por ajudar o planeta! Sua pontuação foi adicionada ao seu total.</p>
-                    <button id="restart-button" class="cta-button">Jogar Novamente</button>
-                </div>
+            <!-- Hero COP 30 -->
+            <div class="hero-cop30">
+                <h2 class="hero-title">COP 30 - Belém 2025</h2>
+                <p class="hero-subtitle">A Conferência do Clima mais importante da década acontece no coração da Amazônia</p>
+                <button class="btn btn-primario" onclick="mostrarTab('cop30')">Saiba Mais sobre a COP 30</button>
             </div>
 
-            <div id="global-score-section">
-                <h3>Sua Pontuação Global</h3>
-                <p>Total de Lixo Coletado: <span id="global-score-value">0</span></p>
-                <div class="progress-bar-container">
-                    <div id="global-progress-bar" class="progress-bar"></div>
+            <!-- Sistema de Abas -->
+            <div class="tabs-container">
+                <!-- Tab COP 30 -->
+                <div id="cop30" class="tab-content ativo">
+                    <h2>🌍 COP 30 - Conferência das Nações Unidas sobre Mudança do Clima</h2>
+                    
+                    <div class="estatisticas">
+                        <h3 style="text-align: center; margin-bottom: 2rem;">Números da COP 30</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <h3>195</h3>
+                                <p>Países Participantes</p>
+                            </div>
+                            <div class="stat-item">
+                                <h3>40mil</h3>
+                                <p>Participantes Esperados</p>
+                            </div>
+                            <div class="stat-item">
+                                <h3>2025</h3>
+                                <p>Ano Decisivo para o Clima</p>
+                            </div>
+                            <div class="stat-item">
+                                <h3>1.5°C</h3>
+                                <p>Meta de Aquecimento</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dicas-grid">
+                        <div class="dica-card">
+                            <h3>🏛️ O que é a COP 30?</h3>
+                            <p>A 30ª Conferência das Partes da Convenção-Quadro das Nações Unidas sobre Mudança do Clima será realizada em Belém, Pará, em 2025. É o maior evento sobre meio ambiente do mundo.</p>
+                        </div>
+                        <div class="dica-card">
+                            <h3>🌳 Por que na Amazônia?</h3>
+                            <p>A Amazônia é fundamental para o equilíbrio climático global. Sediar a COP 30 em Belém destaca a importância da floresta na luta contra as mudanças climáticas.</p>
+                        </div>
+                        <div class="dica-card">
+                            <h3>🎯 Principais Objetivos</h3>
+                            <p>Definir novas metas de redução de emissões, financiamento climático, proteção da biodiversidade e transição energética sustentável.</p>
+                        </div>
+                        <div class="dica-card">
+                            <h3>🤝 Participação Brasileira</h3>
+                            <p>O Brasil assume protagonismo na agenda climática global, apresentando soluções inovadoras e compromissos ambiciosos para a sustentabilidade.</p>
+                        </div>
+                    </div>
                 </div>
-                <p><span id="global-progress-text">0</span> / 1000 Pontos para a próxima recompensa</p>
+
+                <!-- Tab Reciclagem -->
+                <div id="reciclagem" class="tab-content">
+                    <h2>♻️ Como Reciclar Corretamente</h2>
+                    
+                    <div class="dicas-grid">
+                        <div class="dica-card">
+                            <h3>🗑️ Papel e Papelão</h3>
+                            <p><strong>Pode:</strong> Jornais, revistas, caixas, cadernos</p>
+                            <p><strong>Não pode:</strong> Papel higiênico, guardanapos sujos, fotografias</p>
+                            <p><strong>Dica:</strong> Remova grampos e fitas adesivas antes de descartar</p>
+                        </div>
+                        <div class="dica-card">
+                            <h3>🥤 Plásticos</h3>
+                            <p><strong>Pode:</strong> Garrafas PET, embalagens, sacolas</p>
+                            <p><strong>Não pode:</strong> Plásticos sujos, adesivos, isopor</p>
+                            <p><strong>Dica:</strong> Lave as embalagens antes de descartar</p>
+                        </div>
+                        <div class="dica-card">
+                            <h3>🥫 Metais</h3>
+                            <p><strong>Pode:</strong> Latas de alumínio, ferro, aço</p>
+                            <p><strong>Não pode:</strong> Materiais com tinta, aerossóis</p>
+                            <p><strong>Dica:</strong> Amasse as latas para economizar espaço</p>
+                        </div>
+                        <div class="dica-card">
+                            <h3>🍶 Vidros</h3>
+                            <p><strong>Pode:</strong> Garrafas, potes, frascos</p>
+                            <p><strong>Não pode:</strong> Espelhos, cristais, vidros temperados</p>
+                            <p><strong>Dica:</strong> Cuidado com vidros quebrados, embrulhe bem</p>
+                        </div>
+                    </div>
+
+                    <div class="estadisticas">
+                        <h3 style="text-align: center; margin-bottom: 2rem;">💚 Impacto da Reciclagem</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <h3>1 ton</h3>
+                                <p>Papel reciclado = 20 árvores poupadas</p>
+                            </div>
+                            <div class="stat-item">
+                                <h3>90%</h3>
+                                <p>Menos energia para reciclar alumínio</p>
+                            </div>
+                            <div class="stat-item">
+                                <h3>500 anos</h3>
+                                <p>Tempo para plástico se degradar</p>
+                            </div>
+                            <div class="stat-item">
+                                <h3>100%</h3>
+                                <p>Vidro pode ser reciclado infinitamente</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Meio Ambiente -->
+                <div id="meio-ambiente" class="tab-content">
+                    <h2>🌱 Como Salvar o Meio Ambiente</h2>
+                    
+                    <div class="dicas-grid">
+                        <div class="dica-card">
+                            <h3>💡 Economize Energia</h3>
+                            <p>• Use lâmpadas LED</p>
+                            <p>• Desligue aparelhos da tomada</p>
+                            <p>• Prefira luz natural</p>
+                            <p>• Use ar condicionado conscientemente</p>
+                        </div>
+                        <div class="dica-card">
+                            <h3>💧 Poupe Água</h3>
+                            <p>• Banhos mais curtos</p>
+                            <p>• Conserte vazamentos</p>
+                            <p>• Reutilize água da chuva</p>
+                            <p>• Feche a torneira ao escovar os dentes</p>
+                        </div>
+                        <div class="dica-card">
+                            <h3>🚗 Transporte Sustentável</h3>
+                            <p>• Use transporte público</p>
+                            <p>• Prefira bicicleta ou caminhada</p>
+                            <p>• Compartilhe caronas</p>
+                            <p>• Trabalhe home office quando possível</p>
+                        </div>
+                        <div class="dica-card">
+                            <h3>🍃 Consumo Consciente</h3>
+                            <p>• Compre apenas o necessário</p>
+                            <p>• Prefira produtos locais</p>
+                            <p>• Evite embalagens excessivas</p>
+                            <p>• Doe ou venda itens que não usa</p>
+                        </div>
+                        <div class="dica-card">
+                            <h3>🌳 Proteja a Natureza</h3>
+                            <p>• Plante árvores e flores</p>
+                            <p>• Não jogue lixo na natureza</p>
+                            <p>• Participe de limpezas ambientais</p>
+                            <p>• Apoie ONGs ambientais</p>
+                        </div>
+                        <div class="dica-card">
+                            <h3>🥬 Alimentação Sustentável</h3>
+                            <p>• Reduza o consumo de carne</p>
+                            <p>• Prefira alimentos orgânicos</p>
+                            <p>• Evite desperdício de comida</p>
+                            <p>• Faça compostagem doméstica</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Jogo -->
+                <div id="jogo" class="tab-content">
+                    <div class="jogo-reciclagem">
+                        <h2>🎮 EcoGame - Lixeira Virtual</h2>
+                        <p>Clique na lixeira para descartar lixo corretamente e ganhar EcoPontos!</p>
+                        
+                        <div class="lixeira-virtual" onclick="jogarLixo()">
+                            🗑️
+                        </div>
+                        
+                        <div class="contador-lixo">
+                            Lixos descartados: <span id="contadorLixo">0</span>
+                        </div>
+                        
+                        <p>Cada lixo descartado = 1 EcoPonto</p>
+                        <p>Use seus pontos para resgatar recompensas na aba "Recompensas"!</p>
+                    </div>
+                </div>
+
+                <!-- Tab Recompensas -->
+                <div id="recompensas" class="tab-content">
+                    <h2>🎁 Sistema de Recompensas EcoPontos</h2>
+                    <p>Troque seus EcoPontos por recompensas sustentáveis!</p>
+                    
+                    <div class="grid-recompensas" id="gridRecompensas">
+                        <div class="card-recompensa" data-pontos="10">
+                            <div class="recompensa-icone">🍎</div>
+                            <div class="recompensa-titulo">Maçã Orgânica</div>
+                            <div class="recompensa-pontos">10 EcoPontos</div>
+                            <button class="btn btn-resgatar" onclick="resgatarRecompensa(10, 'Maçã Orgânica')">Resgatar</button>
+                        </div>
+                        
+                        <div class="card-recompensa" data-pontos="25">
+                            <div class="recompensa-icone">🥪</div>
+                            <div class="recompensa-titulo">Sanduíche Natural</div>
+                            <div class="recompensa-pontos">25 EcoPontos</div>
+                            <button class="btn btn-resgatar" onclick="resgatarRecompensa(25, 'Sanduíche Natural')">Resgatar</button>
+                        </div>
+                        
+                        <div class="card-recompensa" data-pontos="50">
+                            <div class="recompensa-icone">🥗</div>
+                            <div class="recompensa-titulo">Salada Completa</div>
+                            <div class="recompensa-pontos">50 EcoPontos</div>
+                            <button class="btn btn-resgatar" onclick="resgatarRecompensa(50, 'Salada Completa')">Resgatar</button>
+                        </div>
+                        
+                        <div class="card-recompensa" data-pontos="75">
+                            <div class="recompensa-icone">🍕</div>
+                            <div class="recompensa-titulo">Pizza Vegana</div>
+                            <div class="recompensa-pontos">75 EcoPontos</div>
+                            <button class="btn btn-resgatar" onclick="resgatarRecompensa(75, 'Pizza Vegana')">Resgatar</button>
+                        </div>
+                        
+                        <div class="card-recompensa" data-pontos="100">
+                            <div class="recompensa-icone">🌱</div>
+                            <div class="recompensa-titulo">Kit Plantio</div>
+                            <div class="recompensa-pontos">100 EcoPontos</div>
+                            <button class="btn btn-resgatar" onclick="resgatarRecompensa(100, 'Kit de Plantio')">Resgatar</button>
+                        </div>
+                        
+                        <div class="card-recompensa" data-pontos="200">
+                            <div class="recompensa-icone">🎒</div>
+                            <div class="recompensa-titulo">Mochila Ecológica</div>
+                            <div class="recompensa-pontos">200 EcoPontos</div>
+                            <button class="btn btn-resgatar" onclick="resgatarRecompensa(200, 'Mochila Ecológica')">Resgatar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Outras seções (Recompensas, FAQ) permanecem as mesmas -->
-    <section id="rewards" class="content-section-dark">
-        <!-- ... Conteúdo da seção de recompensas ... -->
-    </section>
-    <section id="faq" class="content-section">
-        <!-- ... Conteúdo da seção de FAQ ... -->
-    </section>
+    <script>
+        let pontos = 0;
+        let lixosDescartados = 0;
 
-    <!-- Rodapé -->
-    <footer class="main-footer">
-        <!-- ... Conteúdo do rodapé ... -->
-    </footer>
-    
-    <!-- Elementos de Áudio -->
-    <audio id="collect-sound" src="https://www.myinstants.com/media/sounds/pickup-coin.mp3" preload="auto"></audio>
-    <audio id="background-music" src="https://cdn.pixabay.com/download/audio/2022/08/04/audio_2dde649d10.mp3" preload="auto" loop></audio>
-
-    <!-- Scripts -->
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.156.1/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.156.1/examples/jsm/"
+        function mostrarTab(tabId) {
+            // Ocultar todas as abas
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('ativo'));
+            
+            // Remover classe ativo dos links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('ativo'));
+            
+            // Mostrar aba selecionada
+            document.getElementById(tabId).classList.add('ativo');
+            
+            // Ativar link correspondente
+            const linkAtivo = document.querySelector(`[onclick="mostrarTab('${tabId}')"]`);
+            if (linkAtivo) {
+                linkAtivo.classList.add('ativo');
+            }
+            
+            // Atualizar recompensas quando abrir a aba
+            if (tabId === 'recompensas') {
+                atualizarRecompensas();
             }
         }
+
+        function jogarLixo() {
+            lixosDescartados++;
+            pontos++;
+            
+            // Atualizar displays
+            document.getElementById('pontosDisplay').textContent = pontos;
+            document.getElementById('contadorLixo').textContent = lixosDescartados;
+            
+            // Mostrar feedback visual
+            mostrarFeedback();
+            
+            // Animação da lixeira
+            const lixeira = document.querySelector('.lixeira-virtual');
+            lixeira.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                lixeira.style.transform = 'scale(1)';
+            }, 200);
+            
+            // Salvar no localStorage
+            localStorage.setItem('ecopontos', pontos);
+            localStorage.setItem('lixosDescartados', lixosDescartados);
+            
+            // Atualizar recompensas
+            atualizarRecompensas();
+        }
+
+        function mostrarFeedback() {
+            const feedback = document.getElementById('feedbackVisual');
+            const mensagens = [
+                '🎉 +1 EcoPonto! Continue salvando o planeta!',
+                '♻️ Muito bem! Reciclagem é vida!',
+                '🌱 Parabéns! Cada gesto conta!',
+                '🌍 Excelente! O planeta agradece!',
+                '💚 Incrível! Você é um herói ambiental!'
+            ];
+            
+            feedback.innerHTML = `<strong>${mensagens[Math.floor(Math.random() * mensagens.length)]}</strong>`;
+            feedback.classList.add('show');
+            
+            setTimeout(() => {
+                feedback.classList.remove('show');
+            }, 3000);
+        }
+
+        function resgatarRecompensa(pontosNecessarios, nomeRecompensa) {
+            if (pontos >= pontosNecessarios) {
+                pontos -= pontosNecessarios;
+                
+                // Atualizar display
+                document.getElementById('pontosDisplay').textContent = pontos;
+                
+                // Salvar no localStorage
+                localStorage.setItem('ecopontos', pontos);
+                
+                // Mostrar mensagem de sucesso
+                alert(`🎁 Parabéns! Você resgatou: ${nomeRecompensa}!\n\nSeus EcoPontos restantes: ${pontos}`);
+                
+                // Atualizar recompensas
+                atualizarRecompensas();
+                
+                // Registrar resgate (poderia ser enviado para um servidor)
+                console.log(`Recompensa resgatada: ${nomeRecompensa} por ${pontosNecessarios} pontos`);
+                
+            } else {
+                const faltam = pontosNecessarios - pontos;
+                alert(`❌ EcoPontos insuficientes!\n\nVocê precisa de mais ${faltam} EcoPontos.\nContinue reciclando no EcoGame!`);
+            }
+        }
+
+        function atualizarRecompensas() {
+            const cards = document.querySelectorAll('.card-recompensa');
+            
+            cards.forEach(card => {
+                const pontosNecessarios = parseInt(card.getAttribute('data-pontos'));
+                const botao = card.querySelector('.btn-resgatar');
+                
+                if (pontos >= pontosNecessarios) {
+                    card.classList.add('disponivel');
+                    card.classList.remove('indisponivel');
+                    botao.disabled = false;
+                    botao.textContent = 'Resgatar';
+                } else {
+                    card.classList.add('indisponivel');
+                    card.classList.remove('disponivel');
+                    botao.disabled = true;
+                    const faltam = pontosNecessarios - pontos;
+                    botao.textContent = `Faltam ${faltam}`;
+                }
+            });
+        }
+
+        // Carregar dados salvos ao carregar a página
+        window.onload = function() {
+            // Carregar pontos e lixos salvos
+            const pontosSalvos = localStorage.getItem('ecopontos');
+            const lixosSalvos = localStorage.getItem('lixosDescartados');
+            
+            if (pontosSalvos) {
+                pontos = parseInt(pontosSalvos);
+                document.getElementById('pontosDisplay').textContent = pontos;
+            }
+            
+            if (lixosSalvos) {
+                lixosDescartados = parseInt(lixosSalvos);
+                document.getElementById('contadorLixo').textContent = lixosDescartados;
+            }
+            
+            // Atualizar recompensas
+            atualizarRecompensas();
+            
+            // Animações de entrada
+            setTimeout(() => {
+                document.querySelector('.hero-cop30').style.animation = 'fadeIn 1s ease';
+            }, 500);
+        }
+
+        // Função para resetar progresso (para desenvolvimento/teste)
+        function resetarProgresso() {
+            if (confirm('⚠️ Tem certeza que deseja resetar todo seu progresso?')) {
+                pontos = 0;
+                lixosDescartados = 0;
+                localStorage.removeItem('ecopontos');
+                localStorage.removeItem('lixosDescartados');
+                
+                document.getElementById('pontosDisplay').textContent = pontos;
+                document.getElementById('contadorLixo').textContent = lixosDescartados;
+                
+                atualizarRecompensas();
+                alert('✅ Progresso resetado com sucesso!');
+            }
+        }
+
+        // Adicionar efeitos especiais em marcos importantes
+        function verificarMarcos() {
+            if (lixosDescartados === 10) {
+                alert('🏆 MARCO ALCANÇADO!\n\nVocê descartou 10 lixos corretamente!\nContinue assim, herói ambiental!');
+            } else if (lixosDescartados === 50) {
+                alert('🌟 INCRÍVEL!\n\n50 lixos reciclados!\nVocê está fazendo a diferença!');
+            } else if (lixosDescartados === 100) {
+                alert('👑 CAMPEÃO AMBIENTAL!\n\n100 lixos reciclados!\nVocê é um exemplo para todos!');
+            }
+        }
+
+        // Atualizar a função jogarLixo para incluir verificação de marcos
+        const jogarLixoOriginal = jogarLixo;
+        jogarLixo = function() {
+            jogarLixoOriginal();
+            verificarMarcos();
+        }
     </script>
-    <script type="module" src="main.js"></script>
+
+    <!-- Footer COP 30 -->
+    <footer style="background-color: var(--cinza-escuro); color: var(--branco); padding: 2rem 0; margin-top: 3rem;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="color: var(--amarelo-brasil); margin-bottom: 1rem;">COP 30 Brasil</h3>
+                    <p>Belém, Pará - 2025</p>
+                    <p>Amazônia, Coração do Mundo</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--amarelo-brasil); margin-bottom: 1rem;">Links Úteis</h3>
+                    <p><a href="#" style="color: var(--branco); text-decoration: none;">Portal Oficial COP 30</a></p>
+                    <p><a href="#" style="color: var(--branco); text-decoration: none;">Ministério do Meio Ambiente</a></p>
+                    <p><a href="#" style="color: var(--branco); text-decoration: none;">UNFCCC</a></p>
+                </div>
+                <div>
+                    <h3 style="color: var(--amarelo-brasil); margin-bottom: 1rem;">Sustentabilidade</h3>
+                    <p><a href="#" style="color: var(--branco); text-decoration: none;">Guia de Reciclagem</a></p>
+                    <p><a href="#" style="color: var(--branco); text-decoration: none;">Dicas Ambientais</a></p>
+                    <p><a href="#" style="color: var(--branco); text-decoration: none;">EcoGame</a></p>
+                </div>
+                <div>
+                    <h3 style="color: var(--amarelo-brasil); margin-bottom: 1rem;">Redes Sociais</h3>
+                    <p>🐦 @COP30Brasil</p>
+                    <p>📘 /COP30Brasil</p>
+                    <p>📷 @cop30brasil</p>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #555; padding-top: 1rem; text-align: center; font-size: 0.9rem; opacity: 0.8;">
+                <p>© 2025 COP 30 Brasil - Governo Federal do Brasil | Todos os direitos reservados</p>
+                <p style="margin-top: 0.5rem;">🌱 Este site é neutro em carbono | Desenvolvido com energia renovável</p>
+                <p style="margin-top: 1rem; font-size: 0.8rem;">
+                    <button onclick="resetarProgresso()" style="background: none; border: 1px solid #666; color: #999; padding: 0.3rem 0.8rem; border-radius: 4px; cursor: pointer;">
+                        🔄 Resetar Progresso (Dev)
+                    </button>
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
