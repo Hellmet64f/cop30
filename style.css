@@ -88,7 +88,7 @@ a {
 }
 
 .logo {
-    height: 60px;
+    height: 60px; /* Ajuste a altura conforme necessário */
     width: auto;
 }
 
@@ -120,7 +120,7 @@ a {
    Seção Hero
    ========================================================================== */
 .hero-section {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://imgur.com/a/example-bg.jpg'); /* Substituir por uma imagem de fundo relevante */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.imgur.com/xG80pWJ.jpg'); /* Imagem de fundo genérica da Amazônia */
     background-size: cover;
     background-position: center;
     color: var(--light-text-color);
