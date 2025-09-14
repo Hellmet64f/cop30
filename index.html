@@ -30,6 +30,7 @@
             line-height: 1.6;
             color: var(--cinza-escuro);
             background-color: var(--cinza-claro);
+            overflow-x: hidden;
         }
 
         .header-gov {
@@ -37,6 +38,9 @@
             color: var(--branco);
             padding: 1rem 0;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .container {
@@ -69,8 +73,14 @@
             justify-content: center;
             font-weight: bold;
             color: var(--verde-brasil);
-            font-size: 16px;
+            font-size: 20px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .titulo-site {
@@ -91,6 +101,7 @@
             border-radius: 8px;
             text-align: center;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .pontos-display {
@@ -102,6 +113,7 @@
         .nav-principal {
             background-color: var(--verde-escuro);
             padding: 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .nav-lista {
@@ -109,6 +121,7 @@
             list-style: none;
             margin: 0;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .nav-item {
@@ -124,6 +137,7 @@
             font-weight: 500;
             border-bottom: 3px solid transparent;
             font-size: 0.9rem;
+            position: relative;
         }
 
         .nav-link:hover,
@@ -159,6 +173,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+            50% { transform: translate(-50%, -50%) translateY(-20px); }
         }
 
         .hero-title {
@@ -166,6 +186,7 @@
             font-weight: 700;
             margin-bottom: 1rem;
             position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .hero-subtitle {
@@ -180,15 +201,16 @@
             background: var(--branco);
             padding: 2rem;
             border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
         }
 
         .tab-content.ativo {
             display: block;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -198,6 +220,7 @@
             border-radius: 12px;
             text-align: center;
             margin: 2rem 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
         .lixeira-virtual {
@@ -213,11 +236,16 @@
             transition: all 0.3s ease;
             font-size: 4rem;
             box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            position: relative;
         }
 
         .lixeira-virtual:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(5deg);
             box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+        }
+
+        .lixeira-virtual:active {
+            transform: scale(0.95);
         }
 
         .contador-lixo {
@@ -242,11 +270,29 @@
             text-align: center;
             border: 2px solid transparent;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-recompensa::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .card-recompensa:hover::before {
+            left: 100%;
         }
 
         .card-recompensa:hover {
             border-color: var(--verde-brasil);
             transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
 
         .card-recompensa.disponivel {
@@ -262,6 +308,13 @@
         .recompensa-icone {
             font-size: 3rem;
             margin-bottom: 1rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
 
         .recompensa-titulo {
@@ -275,6 +328,7 @@
             color: var(--laranja);
             font-weight: bold;
             font-size: 1.1rem;
+            margin-bottom: 1rem;
         }
 
         .btn {
@@ -288,6 +342,23 @@
             cursor: pointer;
             font-size: 1rem;
             margin: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primario {
@@ -315,6 +386,7 @@
             cursor: not-allowed;
             transform: none;
             box-shadow: none;
+            opacity: 0.7;
         }
 
         .dicas-grid {
@@ -330,6 +402,12 @@
             border-radius: 12px;
             border-left: 4px solid var(--verde-brasil);
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dica-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         }
 
         .dica-card h3 {
@@ -346,6 +424,7 @@
             padding: 2rem;
             border-radius: 12px;
             margin: 2rem 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
         .stats-grid {
@@ -359,49 +438,110 @@
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
             color: var(--amarelo-brasil);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .feedback-visual {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: var(--verde-brasil);
+            background: linear-gradient(135deg, var(--verde-brasil), var(--verde-copa));
             color: var(--branco);
             padding: 1rem 2rem;
             border-radius: 8px;
             transform: translateX(300px);
             transition: transform 0.3s ease;
             z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .feedback-visual.show {
             transform: translateX(0);
         }
 
-        .cop-card-image {
-            width: 100%;
-            height: 200px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            margin: 1rem 0;
+        .cop-timeline {
             position: relative;
-            font-weight: bold;
+            padding: 2rem 0;
         }
 
-        .badge-proxima {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--amarelo-brasil);
-            color: var(--cinza-escuro);
-            padding: 0.3rem 0.6rem;
+        .timeline-item {
+            display: flex;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-year {
+            background: var(--verde-brasil);
+            color: var(--branco);
+            padding: 0.5rem 1rem;
             border-radius: 20px;
-            font-size: 0.8rem;
             font-weight: bold;
+            margin-right: 2rem;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .timeline-content {
+            background: var(--branco);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            flex: 1;
+            border-left: 4px solid var(--verde-brasil);
+        }
+
+        .progress-bar {
+            background: var(--cinza-medio);
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, var(--verde-brasil), var(--verde-copa));
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .footer {
+            background: var(--verde-escuro);
+            color: var(--branco);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--amarelo-brasil);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--branco);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--amarelo-brasil);
         }
 
         @media (max-width: 768px) {
@@ -421,13 +561,95 @@
             .grid-recompensas {
                 grid-template-columns: 1fr;
             }
+            
+            .dicas-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-year {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                align-self: flex-start;
+            }
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid var(--verde-brasil);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: var(--branco);
+            margin: 15% auto;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            animation: modalShow 0.3s ease;
+        }
+
+        @keyframes modalShow {
+            from { opacity: 0; transform: scale(0.7); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--cinza-escuro);
         }
     </style>
 </head>
 <body>
+    <!-- Modal de Recompensa -->
+    <div id="modalRecompensa" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <h3>🎉 Parabéns!</h3>
+            <p id="mensagemModal"></p>
+            <button class="btn btn-primario" onclick="fecharModal()">Continuar</button>
+        </div>
+    </div>
+
     <!-- Feedback Visual -->
     <div id="feedbackVisual" class="feedback-visual">
-        <strong>🎉 +1 Ponto!</strong> Continue salvando o planeta!
+        <strong>🎉 +1 EcoPonto!</strong> Continue salvando o planeta!
     </div>
 
     <!-- Header COP 30 -->
@@ -537,28 +759,28 @@
                 
                 <div class="dicas-grid">
                     <div class="dica-card">
-                        <h3>🗑️ Papel e Papelão</h3>
-                        <p><strong>Pode:</strong> Jornais, revistas, caixas, cadernos</p>
-                        <p><strong>Não pode:</strong> Papel higiênico, guardanapos sujos, fotografias</p>
-                        <p><strong>Dica:</strong> Remova grampos e fitas adesivas antes de descartar</p>
+                        <h3>📄 Papel e Papelão</h3>
+                        <p><strong>✅ Pode:</strong> Jornais, revistas, caixas, cadernos</p>
+                        <p><strong>❌ Não pode:</strong> Papel higiênico, guardanapos sujos, fotografias</p>
+                        <p><strong>💡 Dica:</strong> Remova grampos e fitas adesivas antes de descartar</p>
                     </div>
                     <div class="dica-card">
                         <h3>🥤 Plásticos</h3>
-                        <p><strong>Pode:</strong> Garrafas PET, embalagens, sacolas</p>
-                        <p><strong>Não pode:</strong> Plásticos sujos, adesivos, isopor</p>
-                        <p><strong>Dica:</strong> Lave as embalagens antes de descartar</p>
+                        <p><strong>✅ Pode:</strong> Garrafas PET, embalagens, sacolas</p>
+                        <p><strong>❌ Não pode:</strong> Plásticos sujos, adesivos, isopor</p>
+                        <p><strong>💡 Dica:</strong> Lave as embalagens antes de descartar</p>
                     </div>
                     <div class="dica-card">
                         <h3>🥫 Metais</h3>
-                        <p><strong>Pode:</strong> Latas de alumínio, ferro, aço</p>
-                        <p><strong>Não pode:</strong> Materiais com tinta, aerossóis</p>
-                        <p><strong>Dica:</strong> Amasse as latas para economizar espaço</p>
+                        <p><strong>✅ Pode:</strong> Latas de alumínio, ferro, aço</p>
+                        <p><strong>❌ Não pode:</strong> Materiais com tinta, aerossóis</p>
+                        <p><strong>💡 Dica:</strong> Amasse as latas para economizar espaço</p>
                     </div>
                     <div class="dica-card">
                         <h3>🍶 Vidros</h3>
-                        <p><strong>Pode:</strong> Garrafas, potes, frascos</p>
-                        <p><strong>Não pode:</strong> Espelhos, cristais, vidros temperados</p>
-                        <p><strong>Dica:</strong> Cuidado com vidros quebrados, embrulhe bem</p>
+                        <p><strong>✅ Pode:</strong> Garrafas, potes, frascos</p>
+                        <p><strong>❌ Não pode:</strong> Espelhos, cristais, vidros temperados</p>
+                        <p><strong>💡 Dica:</strong> Cuidado com vidros quebrados, embrulhe bem</p>
                     </div>
                 </div>
 
@@ -592,47 +814,52 @@
                 <div class="dicas-grid">
                     <div class="dica-card">
                         <h3>💡 Economize Energia</h3>
-                        <p>• Use lâmpadas LED</p>
-                        <p>• Desligue aparelhos da tomada</p>
-                        <p>• Prefira luz natural</p>
-                        <p>• Use ar condicionado conscientemente</p>
+                        <p>• Use lâmpadas LED<br>
+                        • Desligue aparelhos da tomada<br>
+                        • Prefira luz natural<br>
+                        • Use ar condicionado conscientemente</p>
                     </div>
                     <div class="dica-card">
                         <h3>💧 Poupe Água</h3>
-                        <p>• Banhos mais curtos</p>
-                        <p>• Conserte vazamentos</p>
-                        <p>• Reutilize água da chuva</p>
-                        <p>• Feche a torneira ao escovar os dentes</p>
+                        <p>• Banhos mais curtos<br>
+                        • Conserte vazamentos<br>
+                        • Reutilize água da chuva<br>
+                        • Feche a torneira ao escovar os dentes</p>
                     </div>
                     <div class="dica-card">
                         <h3>🚗 Transporte Sustentável</h3>
-                        <p>• Use transporte público</p>
-                        <p>• Prefira bicicleta ou caminhada</p>
-                        <p>• Compartilhe caronas</p>
-                        <p>• Trabalhe home office quando possível</p>
+                        <p>• Use transporte público<br>
+                        • Prefira bicicleta ou caminhada<br>
+                        • Compartilhe caronas<br>
+                        • Trabalhe home office quando possível</p>
                     </div>
                     <div class="dica-card">
                         <h3>🍃 Consumo Consciente</h3>
-                        <p>• Compre apenas o necessário</p>
-                        <p>• Prefira produtos locais</p>
-                        <p>• Evite embalagens excessivas</p>
-                        <p>• Doe ou venda itens que não usa</p>
+                        <p>• Compre apenas o necessário<br>
+                        • Prefira produtos locais<br>
+                        • Evite embalagens excessivas<br>
+                        • Doe ou venda itens que não usa</p>
                     </div>
                     <div class="dica-card">
                         <h3>🌳 Proteja a Natureza</h3>
-                        <p>• Plante árvores e flores</p>
-                        <p>• Não jogue lixo na natureza</p>
-                        <p>• Participe de limpezas ambientais</p>
-                        <p>• Apoie ONGs ambientais</p>
+                        <p>• Plante árvores e flores<br>
+                        • Não jogue lixo na natureza<br>
+                        • Participe de limpezas ambientais<br>
+                        • Apoie ONGs ambientais</p>
                     </div>
                     <div class="dica-card">
                         <h3>🥬 Alimentação Sustentável</h3>
-                        <p>• Reduza o consumo de carne</p>
-                        <p>• Prefira alimentos orgânicos</p>
-                        <p>• Evite desperdício de comida</p>
-                        <p>• Faça compostagem doméstica</p>
+                        <p>• Reduza o consumo de carne<br>
+                        • Prefira alimentos orgânicos<br>
+                        • Evite desperdício de comida<br>
+                        • Faça compostagem doméstica</p>
                     </div>
                 </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressoAmbiental" style="width: 25%;"></div>
+                </div>
+                <p style="text-align: center; margin-top: 1rem;">Progresso das metas ambientais globais: 25%</p>
             </div>
 
             <!-- Tab Jogo -->
@@ -651,6 +878,11 @@
                     
                     <p>Cada lixo descartado = 1 EcoPonto</p>
                     <p>Use seus pontos para resgatar recompensas na aba "Recompensas"!</p>
+                    
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressoJogo" style="width: 0%;"></div>
+                    </div>
+                    <p style="margin-top: 1rem;">Meta: 100 lixos descartados</p>
                 </div>
             </div>
 
@@ -723,4 +955,542 @@
                         <div class="recompensa-icone">🍕</div>
                         <div class="recompensa-titulo">Pizza Vegana</div>
                         <div class="recompensa-pontos">85 EcoPontos</div>
-                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(85,
+                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(85, 'Pizza Vegana')">Resgatar</button>
+                    </div>
+
+                    <!-- Recompensas Premium -->
+                    <div class="card-recompensa" data-pontos="100">
+                        <div class="recompensa-icone">🌳</div>
+                        <div class="recompensa-titulo">Plante uma Árvore</div>
+                        <div class="recompensa-pontos">100 EcoPontos</div>
+                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(100, 'Plante uma Árvore')">Resgatar</button>
+                    </div>
+
+                    <div class="card-recompensa" data-pontos="150">
+                        <div class="recompensa-icone">🎒</div>
+                        <div class="recompensa-titulo">Mochila Ecológica</div>
+                        <div class="recompensa-pontos">150 EcoPontos</div>
+                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(150, 'Mochila Ecológica')">Resgatar</button>
+                    </div>
+
+                    <div class="card-recompensa" data-pontos="200">
+                        <div class="recompensa-icone">🏆</div>
+                        <div class="recompensa-titulo">Certificado Eco-Herói</div>
+                        <div class="recompensa-pontos">200 EcoPontos</div>
+                        <button class="btn btn-resgatar" onclick="resgatarRecompensa(200, 'Certificado Eco-Herói')">Resgatar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab História das COPs -->
+            <div id="historico-cop" class="tab-content">
+                <h2>📜 História Completa das Conferências do Clima (COPs)</h2>
+                <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem; color: var(--verde-escuro);">
+                    Desde 1995, as COPs têm sido o principal fórum global para negociações climáticas. Acompanhe a evolução histórica:
+                </p>
+                
+                <div class="cop-timeline">
+                    <!-- Antecedentes -->
+                    <div class="timeline-item">
+                        <div class="timeline-year">1992</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #1e88e5, #43a047);">
+                                🌍 RIO-92
+                            </div>
+                            <h3>🌍 Conferência do Rio</h3>
+                            <p><strong>Rio de Janeiro, Brasil</strong></p>
+                            <p>Conferência das Nações Unidas sobre Meio Ambiente e Desenvolvimento. Marco inicial que criou a Convenção-Quadro das Nações Unidas sobre Mudança do Clima (UNFCCC).</p>
+                        </div>
+                    </div>
+
+                    <!-- COP 1-10 -->
+                    <div class="timeline-item">
+                        <div class="timeline-year">1995</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #000, #d4af37);">
+                                🚀 COP 1
+                            </div>
+                            <h3>🚀 COP 1</h3>
+                            <p><strong>Berlim, Alemanha</strong></p>
+                            <p>Primeira Conferência das Partes. Estabelecimento do Mandato de Berlim para negociar metas de redução de emissões para países desenvolvidos.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">1996</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #1976d2, #ffffff);">
+                                🇨🇭 COP 2
+                            </div>
+                            <h3>🏔️ COP 2</h3>
+                            <p><strong>Genebra, Suíça</strong></p>
+                            <p>Declaração de Genebra enfatiza a urgência de ação climática baseada em evidências científicas do IPCC.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">1997</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #d32f2f, #ffffff);">
+                                📋 COP 3
+                            </div>
+                            <h3>📋 COP 3 - Marco Histórico</h3>
+                            <p><strong>Kyoto, Japão</strong></p>
+                            <p>Protocolo de Kyoto: primeiro acordo internacional com metas obrigatórias de redução de emissões (5,2% abaixo dos níveis de 1990) para países desenvolvidos.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">1998</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #8b4513, #daa520);">
+                                🏛️ COP 4
+                            </div>
+                            <h3>🏛️ COP 4</h3>
+                            <p><strong>Buenos Aires, Argentina</strong></p>
+                            <p>Plano de Ação de Buenos Aires para implementar o Protocolo de Kyoto e fortalecer os mecanismos de flexibilidade.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">1999</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #000080, #ffffff);">
+                                🌊 COP 5
+                            </div>
+                            <h3>🌊 COP 5</h3>
+                            <p><strong>Bonn, Alemanha</strong></p>
+                            <p>Discussões técnicas sobre implementação do Protocolo de Kyoto e desenvolvimento dos mecanismos de desenvolvimento limpo (MDL).</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2000</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #1565c0, #ffffff);">
+                                💻 COP 6
+                            </div>
+                            <h3>💻 COP 6</h3>
+                            <p><strong>Haia, Holanda</strong></p>
+                            <p>Negociações sobre sumidouros de carbono e mecanismos de flexibilidade do Protocolo de Kyoto. Sessão suspensa devido a desacordos.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2001</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #2e7d32, #81c784);">
+                                🌿 COP 6.5 / COP 7
+                            </div>
+                            <h3>🌿 COP 6.5 e COP 7</h3>
+                            <p><strong>Bonn, Alemanha / Marrakech, Marrocos</strong></p>
+                            <p>COP 6.5 (Bonn): Acordo sobre implementação do Protocolo de Kyoto. COP 7 (Marrakech): Finalização das regras operacionais detalhadas.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2002</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #8bc34a, #4caf50);">
+                                🏙️ COP 8
+                            </div>
+                            <h3>🏙️ COP 8</h3>
+                            <p><strong>Nova Delhi, Índia</strong></p>
+                            <p>Declaração de Delhi enfatiza a importância do desenvolvimento sustentável e adaptação às mudanças climáticas.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2003</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #9c27b0, #e1bee7);">
+                                🎭 COP 9
+                            </div>
+                            <h3>🎭 COP 9</h3>
+                            <p><strong>Milão, Itália</strong></p>
+                            <p>Discussões sobre adaptação, tecnologia limpa e o futuro do regime climático internacional pós-2012.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2004</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #795548, #d7ccc8);">
+                                🌆 COP 10
+                            </div>
+                            <h3>🌆 COP 10</h3>
+                            <p><strong>Buenos Aires, Argentina</strong></p>
+                            <p>Programa de Trabalho de Buenos Aires sobre adaptação e medidas de resposta às mudanças climáticas.</p>
+                        </div>
+                    </div>
+
+                    <!-- COP 11-20 -->
+                    <div class="timeline-item">
+                        <div class="timeline-year">2005</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #f44336, #ffcdd2);">
+                                🍁 COP 11
+                            </div>
+                            <h3>🍁 COP 11</h3>
+                            <p><strong>Montreal, Canadá</strong></p>
+                            <p>Entrada em vigor do Protocolo de Kyoto. Início das negociações para o período pós-2012.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2006</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #ff9800, #ffe0b2);">
+                                🏝️ COP 12
+                            </div>
+                            <h3>🏝️ COP 12</h3>
+                            <p><strong>Nairobi, Quênia</strong></p>
+                            <p>Foco na adaptação para países em desenvolvimento e revisão do Protocolo de Kyoto.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2007</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #2196f3, #bbdefb);">
+                                🌺 COP 13
+                            </div>
+                            <h3>🌺 COP 13</h3>
+                            <p><strong>Bali, Indonésia</strong></p>
+                            <p>Plano de Ação de Bali lança negociações para um acordo climático pós-2012, incluindo países em desenvolvimento.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2008</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #607d8b, #cfd8dc);">
+                                🏰 COP 14
+                            </div>
+                            <h3>🏰 COP 14</h3>
+                            <p><strong>Poznan, Polônia</strong></p>
+                            <p>Progressos nas negociações do Plano de Ação de Bali e discussões sobre financiamento climático.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2009</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #e53935, #ffffff);">
+                                🤝 COP 15
+                            </div>
+                            <h3>🤝 COP 15 - Expectativa Global</h3>
+                            <p><strong>Copenhague, Dinamarca</strong></p>
+                            <p>Acordo de Copenhague (não vinculante) reconhece a necessidade de limitar o aquecimento a 2°C. Compromisso de US$ 100 bilhões anuais até 2020.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2010</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #4caf50, #81c784);">
+                                🇲🇽 COP 16
+                            </div>
+                            <h3>🌮 COP 16</h3>
+                            <p><strong>Cancún, México</strong></p>
+                            <p>Acordos de Cancún estabelecem o Fundo Verde do Clima e o objetivo de 2°C. Criação do mecanismo REDD+.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2011</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #ff5722, #ff8a65);">
+                                🏖️ COP 17
+                            </div>
+                            <h3>🏖️ COP 17</h3>
+                            <p><strong>Durban, África do Sul</strong></p>
+                            <p>Plataforma de Durban estabelece cronograma para negociar um novo acordo global até 2015, que entraria em vigor em 2020.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2012</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #009688, #4db6ac);">
+                                🏖️ COP 18
+                            </div>
+                            <h3>🏖️ COP 18</h3>
+                            <p><strong>Doha, Catar</strong></p>
+                            <p>Emenda de Doha estende o Protocolo de Kyoto até 2020. Estabelecimento de perdas e danos como tema oficial.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2013</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #9c27b0, #ce93d8);">
+                                🌋 COP 19
+                            </div>
+                            <h3>🌋 COP 19</h3>
+                            <p><strong>Varsóvia, Polônia</strong></p>
+                            <p>Mecanismo Internacional de Varsóvia para Perdas e Danos. Avanços no financiamento climático e REDD+.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2014</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #3f51b5, #9fa8da);">
+                                🌎 COP 20
+                            </div>
+                            <h3>🌎 COP 20</h3>
+                            <p><strong>Lima, Peru</strong></p>
+                            <p>Chamada de Lima para Ação Climática estabelece base para as contribuições nacionais (INDCs) para o Acordo de Paris.</p>
+                        </div>
+                    </div>
+
+                    <!-- COP 21-29 -->
+                    <div class="timeline-item">
+                        <div class="timeline-year">2015</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #1565c0, #42a5f5);">
+                                🌟 COP 21
+                            </div>
+                            <h3>🌟 COP 21 - Marco Histórico</h3>
+                            <p><strong>Paris, França</strong></p>
+                            <p>Acordo de Paris: marco histórico com compromisso de limitar aquecimento a bem abaixo de 2°C, buscando 1,5°C. 196 países assinam.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-year">2016</div>
+                        <div class="timeline-content">
+                            <div class="cop-card-image" style="background: linear-gradient(135deg, #e91e63, #f8bbd9);">
+                                🌍 COP 22
+                            </div>
+                            <h3>🌍 COP 22</h3>
+                            <p><strong>Marrakech, Marrocos</strong></p>
+                            <p>C
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🌍 COP 30 Brasil</h3>
+                    <ul>
+                        <li><a href="#">Sobre a COP 30</a></li>
+                        <li><a href="#">Participação</a></li>
+                        <li><a href="#">Agenda</a></li>
+                        <li><a href="#">Notícias</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>♻️ Sustentabilidade</h3>
+                    <ul>
+                        <li><a href="#">Como Reciclar</a></li>
+                        <li><a href="#">Dicas Ambientais</a></li>
+                        <li><a href="#">Energia Limpa</a></li>
+                        <li><a href="#">Consumo Consciente</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>🎮 EcoGame</h3>
+                    <ul>
+                        <li><a href="#">Como Jogar</a></li>
+                        <li><a href="#">Recompensas</a></li>
+                        <li><a href="#">Ranking</a></li>
+                        <li><a href="#">Desafios</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>📞 Contato</h3>
+                    <ul>
+                        <li><a href="#">Fale Conosco</a></li>
+                        <li><a href="#">Parcerias</a></li>
+                        <li><a href="#">Imprensa</a></li>
+                        <li><a href="#">Suporte</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem; margin-top: 2rem;">
+                <p>&copy; 2025 COP 30 Brasil. Todos os direitos reservados. | Desenvolvido para um planeta mais sustentável 🌱</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Variáveis globais
+        let pontos = 0;
+        let lixosDescartados = 0;
+
+        // Carregar dados salvos
+        function carregarDados() {
+            const pontosString = localStorage.getItem('ecopontos') || '0';
+            const lixosString = localStorage.getItem('lixosDescartados') || '0';
+            
+            pontos = parseInt(pontosString);
+            lixosDescartados = parseInt(lixosString);
+            
+            atualizarDisplay();
+        }
+
+        // Salvar dados
+        function salvarDados() {
+            // Como localStorage não é suportado em artifacts, vamos usar variáveis em memória
+            // Em um ambiente real, descomente as linhas abaixo:
+            // localStorage.setItem('ecopontos', pontos.toString());
+            // localStorage.setItem('lixosDescartados', lixosDescartados.toString());
+        }
+
+        // Atualizar displays
+        function atualizarDisplay() {
+            document.getElementById('pontosDisplay').textContent = pontos;
+            document.getElementById('contadorLixo').textContent = lixosDescartados;
+            
+            // Atualizar progresso do jogo
+            const progressoJogo = (lixosDescartados / 100) * 100;
+            document.getElementById('progressoJogo').style.width = Math.min(progressoJogo, 100) + '%';
+            
+            atualizarRecompensas();
+        }
+
+        // Mostrar tab
+        function mostrarTab(tabId) {
+            // Remover classe ativo de todas as tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('ativo'));
+            
+            // Remover classe ativo de todos os links
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => link.classList.remove('ativo'));
+            
+            // Ativar tab selecionada
+            document.getElementById(tabId).classList.add('ativo');
+            
+            // Ativar link correspondente
+            event.target.classList.add('ativo');
+        }
+
+        // Jogar lixo na lixeira
+        function jogarLixo() {
+            pontos++;
+            lixosDescartados++;
+            
+            // Efeito visual na lixeira
+            const lixeira = document.querySelector('.lixeira-virtual');
+            lixeira.style.transform = 'scale(0.9) rotate(10deg)';
+            setTimeout(() => {
+                lixeira.style.transform = 'scale(1) rotate(0deg)';
+            }, 200);
+            
+            mostrarFeedback();
+            atualizarDisplay();
+            salvarDados();
+            
+            // Efeitos especiais para marcos
+            if (lixosDescartados % 10 === 0) {
+                mostrarModalRecompensa(`🎉 Parabéns! Você descartou ${lixosDescartados} lixos corretamente! Continue salvando o planeta!`);
+            }
+        }
+
+        // Mostrar feedback visual
+        function mostrarFeedback() {
+            const feedback = document.getElementById('feedbackVisual');
+            feedback.classList.add('show');
+            
+            setTimeout(() => {
+                feedback.classList.remove('show');
+            }, 2000);
+        }
+
+        // Resgatar recompensa
+        function resgatarRecompensa(custoEco, nomeRecompensa) {
+            if (pontos >= custoEco) {
+                pontos -= custoEco;
+                atualizarDisplay();
+                salvarDados();
+                
+                mostrarModalRecompensa(`🎁 Você resgatou: ${nomeRecompensa}! Parabéns por contribuir com o meio ambiente!`);
+            } else {
+                mostrarModalRecompensa(`❌ EcoPontos insuficientes! Você precisa de ${custoEco} pontos mas tem apenas ${pontos}.`);
+            }
+        }
+
+        // Atualizar status das recompensas
+        function atualizarRecompensas() {
+            const cards = document.querySelectorAll('.card-recompensa');
+            cards.forEach(card => {
+                const custoEco = parseInt(card.dataset.pontos);
+                const botao = card.querySelector('.btn-resgatar');
+                
+                if (pontos >= custoEco) {
+                    card.classList.add('disponivel');
+                    card.classList.remove('indisponivel');
+                    botao.disabled = false;
+                } else {
+                    card.classList.add('indisponivel');
+                    card.classList.remove('disponivel');
+                    botao.disabled = true;
+                }
+            });
+        }
+
+        // Modal de recompensa
+        function mostrarModalRecompensa(mensagem) {
+            document.getElementById('mensagemModal').textContent = mensagem;
+            document.getElementById('modalRecompensa').style.display = 'block';
+        }
+
+        function fecharModal() {
+            document.getElementById('modalRecompensa').style.display = 'none';
+        }
+
+        // Fechar modal clicando fora
+        window.onclick = function(event) {
+            const modal = document.getElementById('modalRecompensa');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Animações ao rolar a página
+        function animarElementosVisiveis() {
+            const elementos = document.querySelectorAll('.dica-card, .card-recompensa, .stat-item');
+            
+            elementos.forEach(elemento => {
+                const rect = elemento.getBoundingClientRect();
+                const estaVisivel = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (estaVisivel && !elemento.classList.contains('animado')) {
+                    elemento.style.animation = 'fadeIn 0.6s ease forwards';
+                    elemento.classList.add('animado');
+                }
+            });
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            carregarDados();
+            animarElementosVisiveis();
+        });
+
+        window.addEventListener('scroll', animarElementosVisiveis);
+
+        // Adicionar alguns pontos iniciais para demonstração
+        setTimeout(() => {
+            if (pontos === 0) {
+                pontos = 25;
+                atualizarDisplay();
+                mostrarFeedback();
+            }
+        }, 1000);
+
+        // Simular progresso ambiental
+        setInterval(() => {
+            const progressoAtual = parseFloat(document.getElementById('progressoAmbiental').style.width);
+            if (progressoAtual < 100) {
+                document.getElementById('progressoAmbiental').style.width = (progressoAtual + 0.1) + '%';
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
