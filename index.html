@@ -29,18 +29,24 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--cinza-escuro);
-            background-color: var(--cinza-claro);
+            background-color: var(--cinza-claro); /* Cor de fallback */
+            background-image: url('https://i.imgur.com/fmx4hHa.jpeg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             overflow-x: hidden;
         }
 
         .header-gov {
-            background: linear-gradient(135deg, var(--verde-brasil), var(--verde-copa));
+            background: linear-gradient(135deg, rgba(22, 136, 33, 0.9), rgba(34, 139, 34, 0.9));
             color: var(--branco);
             padding: 1rem 0;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             position: sticky;
             top: 0;
             z-index: 100;
+            backdrop-filter: blur(5px);
         }
 
         .container {
@@ -66,14 +72,10 @@
         .brasao {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, var(--amarelo-brasil), #FFE082);
+            background-image: url('https://i.imgur.com/fmx4hHa.jpeg'); /* URL ATUALIZADA */
+            background-size: cover;
+            background-position: center;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--verde-brasil);
-            font-size: 20px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
             animation: pulse 2s infinite;
         }
@@ -111,9 +113,10 @@
         }
 
         .nav-principal {
-            background-color: var(--verde-escuro);
+            background-color: rgba(13, 80, 22, 0.9);
             padding: 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
         }
 
         .nav-lista {
@@ -149,13 +152,20 @@
         }
 
         .main-content {
-            background-color: var(--branco);
-            padding: 2rem 0;
-            min-height: 70vh;
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semitransparente */
+            padding: 2rem;
+            border-radius: 12px;
+             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        
+        .main-container {
+             margin-top: 2rem;
+             margin-bottom: 2rem;
         }
 
+
         .hero-cop30 {
-            background: linear-gradient(135deg, var(--verde-copa), var(--azul-brasil));
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.9), rgba(46, 75, 117, 0.9));
             color: var(--branco);
             padding: 3rem 2rem;
             border-radius: 12px;
@@ -198,7 +208,7 @@
 
         .tab-content {
             display: none;
-            background: var(--branco);
+            background: rgba(255, 255, 255, 0.95);
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.1);
@@ -453,7 +463,7 @@
         }
 
         .estatisticas {
-            background: linear-gradient(135deg, var(--azul-brasil), #4a6fa5);
+            background: linear-gradient(135deg, rgba(46, 75, 117, 0.9), rgba(74, 111, 165, 0.9));
             color: var(--branco);
             padding: 2rem;
             border-radius: 12px;
@@ -560,7 +570,7 @@
         }
 
         .footer {
-            background: var(--verde-escuro);
+            background: rgba(13, 80, 22, 0.95);
             color: var(--branco);
             padding: 2rem 0;
             text-align: center;
@@ -673,6 +683,7 @@
             .timeline-year { width: 40px; height: 40px; font-size: 0.8rem; border-width: 2px; }
             .footer-content { text-align: center; }
             .footer-section ul { padding-left: 0; }
+             .main-content { padding: 1rem; }
         }
     </style>
 </head>
@@ -700,7 +711,7 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo-gov">
-                    <div class="brasao">🌍</div>
+                    <div class="brasao"></div>
                     <div>
                         <h1 class="titulo-site">COP 30 Brasil 2025</h1>
                         <p class="subtitulo">Amazônia - Coração do Mundo</p>
@@ -730,8 +741,10 @@
     </nav>
 
     <!-- Conteúdo Principal -->
-    <main class="main-content">
+    <main class="main-container">
         <div class="container">
+           <div class="main-content">
+
             <!-- Hero COP 30 -->
             <div class="hero-cop30">
                 <h2 class="hero-title">COP 30 - Belém 2025</h2>
@@ -866,6 +879,7 @@
                     <div class="timeline-item"><div class="timeline-year" style="background: var(--amarelo-brasil); color: var(--cinza-escuro);">2025</div><div class="timeline-content" style="border-color: var(--amarelo-brasil);"><h3>🌳 COP 30 - A COP da Amazônia</h3><p>Momento crucial para revisar as metas climáticas, com foco na bioeconomia, proteção das florestas e justiça climática.</p></div></div>
                 </div>
             </section>
+          </div>
         </div>
     </main>
 
@@ -1035,4 +1049,4 @@
         
     </script>
 </body>
-</html>
+</html>```
