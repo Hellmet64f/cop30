@@ -1,433 +1,374 @@
-/* ==========================================================================
-   Configurações Globais e Variáveis
-   ========================================================================== */
-:root {
-    --primary-color: #005A9C; /* Azul profundo */
-    --secondary-color: #00A859; /* Verde vibrante */
-    --accent-color: #F7B733; /* Amarelo/Laranja */
-    --light-gray: #f4f4f4;
-    --dark-gray: #333333;
-    --text-color: #333333;
-    --light-text-color: #ffffff;
-    --font-family: 'Roboto', sans-serif;
-    --header-height: 80px;
-}
+// ==========================================================================
+// Módulo do Simulador 3D com Three.js
+// ==========================================================================
+import * as THREE from 'three';
+import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 
-/* Reset Básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+class ClimateHeroSimulator {
+    constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        if (!this.container) {
+            console.error('Container do simulador não encontrado!');
+            return;
+        }
 
-html {
-    scroll-behavior: smooth;
-}
+        // Configurações básicas da cena
+        this.scene = new THREE.Scene();
+        this.camera = new THREE.PerspectiveCamera(75, this.container.clientWidth / this.container.clientHeight, 0.1, 1000);
+        this.renderer = new THREE.WebGLRenderer({ antialias: true });
+        
+        this.setupRenderer();
+        this.setupCamera();
+        this.setupControls();
+        this.setupLighting();
+        this.createEnvironment();
+        this.populateTrashItems(50); // Adiciona 50 itens de lixo
 
-body {
-    font-family: var(--font-family);
-    line-height: 1.6;
-    color: var(--text-color);
-    background-color: #ffffff;
-}
+        // Gerenciamento do estado do jogo
+        this.raycaster = new THREE.Raycaster();
+        this.pointer = new THREE.Vector2();
+        this.trashItems = [];
+        this.score = 0;
+        this.moveForward = false;
+        this.moveBackward = false;
+        this.moveLeft = false;
+        this.moveRight = false;
+        this.velocity = new THREE.Vector3();
+        this.direction = new THREE.Vector3();
+        this.clock = new THREE.Clock();
+        
+        // Callbacks
+        this.onScoreUpdate = () => {};
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-h1, h2, h3 {
-    line-height: 1.2;
-    margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 3rem;
-    font-weight: 700;
-}
-
-h2 {
-    font-size: 2.5rem;
-    text-align: center;
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-bottom: 40px;
-}
-
-p {
-    margin-bottom: 20px;
-    font-size: 1.1rem;
-}
-
-a {
-    text-decoration: none;
-    color: var(--secondary-color);
-}
-
-/* ==========================================================================
-   Cabeçalho e Navegação
-   ========================================================================== */
-.main-header {
-    background-color: rgba(255, 255, 255, 0.9);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--header-height);
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    backdrop-filter: blur(10px);
-}
-
-.main-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-}
-
-.logo {
-    height: 60px; /* Ajuste a altura conforme necessário */
-    width: auto;
-}
-
-.main-nav ul {
-    list-style: none;
-    display: flex;
-}
-
-.main-nav ul li {
-    margin-left: 30px;
-}
-
-.main-nav ul li a {
-    color: var(--primary-color);
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    padding: 10px;
-    transition: color 0.3s ease, border-bottom 0.3s ease;
-    border-bottom: 2px solid transparent;
-}
-
-.main-nav ul li a:hover {
-    color: var(--secondary-color);
-    border-bottom-color: var(--secondary-color);
-}
-
-/* ==========================================================================
-   Seção Hero
-   ========================================================================== */
-.hero-section {
-    /* IMAGEM DE FUNDO ATUALIZADA AQUI */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.imgur.com/P6CHbxn.png');
-    background-size: cover;
-    background-position: center;
-    color: var(--light-text-color);
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding-top: var(--header-height);
-}
-
-.hero-section h1 {
-    font-size: 4rem;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-    margin-bottom: 20px;
-}
-
-.hero-section p {
-    font-size: 1.5rem;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-    margin-bottom: 30px;
-}
-
-.cta-button {
-    background-color: var(--secondary-color);
-    color: var(--light-text-color);
-    padding: 15px 30px;
-    border-radius: 50px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
-}
-
-.cta-button:hover {
-    background-color: #008647;
-    transform: translateY(-3px);
-}
-
-.cta-button:disabled {
-    background-color: #999;
-    cursor: not-allowed;
-    transform: none;
-}
-
-
-/* ==========================================================================
-   Seções de Conteúdo
-   ========================================================================== */
-.content-section {
-    padding: 80px 0;
-    background-color: #fff;
-}
-
-.content-section-dark {
-    padding: 80px 0;
-    background-color: var(--light-gray);
-}
-
-.about-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: justify;
-}
-
-/* ==========================================================================
-   Seção do Simulador
-   ========================================================================== */
-.simulator-section {
-    padding: 80px 0;
-    background-color: #e8f5e9; /* Um verde bem claro */
-}
-
-.simulator-section .subtitle {
-    text-align: center;
-    max-width: 600px;
-    margin: -30px auto 40px;
-}
-
-#simulator-container {
-    width: 100%;
-    height: 600px;
-    background-color: #d0d0d0;
-    border-radius: 10px;
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.2);
-    cursor: grab;
-}
-
-#simulator-container:active {
-    cursor: grabbing;
-}
-
-.game-ui {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-    text-align: center;
-}
-
-.score-panel, .rewards-progress, .instructions {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-}
-
-.game-ui h3 {
-    color: var(--primary-color);
-    margin-bottom: 15px;
-}
-
-.score-panel p {
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-#score-value {
-    color: var(--secondary-color);
-    font-size: 2rem;
-}
-
-.progress-bar-container {
-    width: 100%;
-    height: 25px;
-    background-color: #e0e0e0;
-    border-radius: 50px;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
-.progress-bar {
-    width: 0%;
-    height: 100%;
-    background-color: var(--accent-color);
-    border-radius: 50px;
-    transition: width 0.5s ease-in-out;
-}
-
-/* ==========================================================================
-   Seção de Recompensas
-   ========================================================================== */
-.rewards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
-}
-
-.reward-card {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.reward-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-}
-
-.reward-icon {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 20px;
-}
-
-.reward-card h3 {
-    color: var(--primary-color);
-}
-
-.redeem-section {
-    text-align: center;
-}
-
-/* ==========================================================================
-   Seção de FAQ
-   ========================================================================== */
-.faq-accordion {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.faq-item {
-    background-color: #fff;
-    margin-bottom: 10px;
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.faq-question {
-    width: 100%;
-    padding: 20px;
-    background: none;
-    border: none;
-    text-align: left;
-    font-size: 1.2rem;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--primary-color);
-}
-
-.faq-icon {
-    font-size: 1.5rem;
-    transition: transform 0.3s ease;
-}
-
-.faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out, padding 0.3s ease;
-    padding: 0 20px;
-}
-
-.faq-answer p {
-    padding: 0 0 20px;
-}
-
-.faq-item.active .faq-answer {
-    max-height: 300px; /* Altura suficiente para o conteúdo */
-}
-
-.faq-item.active .faq-icon {
-    transform: rotate(45deg);
-}
-
-/* ==========================================================================
-   Rodapé
-   ========================================================================== */
-.main-footer {
-    background-color: var(--dark-gray);
-    color: var(--light-text-color);
-    padding: 40px 0;
-    text-align: center;
-}
-
-.main-footer a {
-    color: var(--accent-color);
-}
-
-.main-footer p {
-    margin-bottom: 10px;
-}
-
-/* ==========================================================================
-   Responsividade
-   ========================================================================== */
-@media (max-width: 768px) {
-    h1 {
-        font-size: 2.5rem;
+        // Bind de eventos e início do loop
+        this.bindEventListeners();
+        this.animate();
     }
 
-    h2 {
-        font-size: 2rem;
+    // Configuração do renderizador
+    setupRenderer() {
+        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
+        this.renderer.shadowMap.enabled = true;
+        this.container.appendChild(this.renderer.domElement);
+    }
+
+    // Configuração da câmera
+    setupCamera() {
+        this.camera.position.y = 1.8; // Altura de uma pessoa
+    }
+
+    // Configuração dos controles (visão em primeira pessoa)
+    setupControls() {
+        this.controls = new PointerLockControls(this.camera, this.renderer.domElement);
+        this.container.addEventListener('click', () => {
+            this.controls.lock();
+        });
+        this.scene.add(this.controls.getObject());
+    }
+
+    // Configuração da iluminação da cena
+    setupLighting() {
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        this.scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(100, 100, 50);
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.width = 2048;
+        directionalLight.shadow.mapSize.height = 2048;
+        this.scene.add(directionalLight);
     }
     
-    .main-header .container {
-        flex-direction: column;
-        height: auto;
-        padding: 10px;
+    // Criação do ambiente (chão, céu, etc.)
+    createEnvironment() {
+        // Céu
+        this.scene.background = new THREE.Color(0x87CEEB);
+
+        // Chão
+        const groundGeometry = new THREE.PlaneGeometry(500, 500);
+        const groundMaterial = new THREE.MeshStandardMaterial({ color: 0x228B22 }); // Verde grama
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.receiveShadow = true;
+        this.scene.add(ground);
+        
+        // "Muros" para delimitar a área
+        const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xAAAAAA, transparent: true, opacity: 0.3 });
+        const wallGeometry = new THREE.BoxGeometry(500, 20, 1);
+        
+        const wall1 = new THREE.Mesh(wallGeometry, wallMaterial);
+        wall1.position.z = -250;
+        this.scene.add(wall1);
+
+        const wall2 = new THREE.Mesh(wallGeometry, wallMaterial);
+        wall2.position.z = 250;
+        this.scene.add(wall2);
+        
+        const wall3 = new THREE.Mesh(wallGeometry, wallMaterial);
+        wall3.rotation.y = Math.PI / 2;
+        wall3.position.x = -250;
+        this.scene.add(wall3);
+
+        const wall4 = new THREE.Mesh(wallGeometry, wallMaterial);
+        wall4.rotation.y = Math.PI / 2;
+        wall4.position.x = 250;
+        this.scene.add(wall4);
+    }
+
+    // Cria e posiciona os itens de lixo na cena
+    populateTrashItems(count) {
+        const trashGeometries = [
+            new THREE.BoxGeometry(0.3, 0.5, 0.2), // Caixa
+            new THREE.CylinderGeometry(0.15, 0.15, 0.4, 16), // Lata
+            new THREE.SphereGeometry(0.2, 16, 16) // Papel amassado
+        ];
+        const trashMaterials = [
+            new THREE.MeshStandardMaterial({ color: 0x8B4513 }), // Marrom
+            new THREE.MeshStandardMaterial({ color: 0xC0C0C0 }), // Prata
+            new THREE.MeshStandardMaterial({ color: 0xFFFFFF })  // Branco
+        ];
+
+        for (let i = 0; i < count; i++) {
+            const geoIndex = Math.floor(Math.random() * trashGeometries.length);
+            const trash = new THREE.Mesh(trashGeometries[geoIndex], trashMaterials[geoIndex]);
+            
+            trash.position.x = (Math.random() - 0.5) * 480;
+            trash.position.z = (Math.random() - 0.5) * 480;
+            trash.position.y = 0.5; // Um pouco acima do chão
+            
+            trash.castShadow = true;
+            trash.userData.isTrash = true; // Identificador
+            
+            this.scene.add(trash);
+            this.trashItems.push(trash);
+        }
+    }
+
+    // Loop de animação
+    animate() {
+        requestAnimationFrame(this.animate.bind(this));
+        
+        const delta = this.clock.getDelta();
+
+        if (this.controls.isLocked === true) {
+            this.updatePlayerMovement(delta);
+        }
+        
+        // Animação sutil dos lixos
+        this.trashItems.forEach(item => {
+            if (item.parent) { // Se ainda não foi removido
+                item.rotation.y += 0.005;
+            }
+        });
+
+        this.renderer.render(this.scene, this.camera);
     }
     
-    .main-header {
-        height: auto;
-        position: relative;
+    // Atualiza o movimento do jogador
+    updatePlayerMovement(delta) {
+        this.velocity.x -= this.velocity.x * 10.0 * delta;
+        this.velocity.z -= this.velocity.z * 10.0 * delta;
+
+        this.direction.z = Number(this.moveForward) - Number(this.moveBackward);
+        this.direction.x = Number(this.moveRight) - Number(this.moveLeft);
+        this.direction.normalize();
+
+        if (this.moveForward || this.moveBackward) this.velocity.z -= this.direction.z * 40.0 * delta;
+        if (this.moveLeft || this.moveRight) this.velocity.x -= this.direction.x * 40.0 * delta;
+
+        this.controls.moveRight(-this.velocity.x * delta);
+        this.controls.moveForward(-this.velocity.z * delta);
+    }
+    
+    // Gerenciamento de eventos
+    bindEventListeners() {
+        window.addEventListener('resize', this.onWindowResize.bind(this));
+        document.addEventListener('keydown', this.onKeyDown.bind(this));
+        document.addEventListener('keyup', this.onKeyUp.bind(this));
+        this.container.addEventListener('click', this.onClick.bind(this));
+    }
+    
+    onWindowResize() {
+        this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+    }
+    
+    onKeyDown(event) {
+        switch (event.code) {
+            case 'ArrowUp':
+            case 'KeyW':
+                this.moveForward = true;
+                break;
+            case 'ArrowLeft':
+            case 'KeyA':
+                this.moveLeft = true;
+                break;
+            case 'ArrowDown':
+            case 'KeyS':
+                this.moveBackward = true;
+                break;
+            case 'ArrowRight':
+            case 'KeyD':
+                this.moveRight = true;
+                break;
+        }
     }
 
-    .main-nav ul {
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
+    onKeyUp(event) {
+        switch (event.code) {
+            case 'ArrowUp':
+            case 'KeyW':
+                this.moveForward = false;
+                break;
+            case 'ArrowLeft':
+            case 'KeyA':
+                this.moveLeft = false;
+                break;
+            case 'ArrowDown':
+            case 'KeyS':
+                this.moveBackward = false;
+                break;
+            case 'ArrowRight':
+            case 'KeyD':
+                this.moveRight = false;
+                break;
+        }
+    }
+    
+    onClick() {
+        if (!this.controls.isLocked) return;
+
+        this.pointer.x = 0;
+        this.pointer.y = 0;
+
+        this.raycaster.setFromCamera(this.pointer, this.camera);
+        const intersects = this.raycaster.intersectObjects(this.scene.children);
+
+        for (const intersect of intersects) {
+            if (intersect.object.userData.isTrash && intersect.distance < 5) { // Coleta se estiver perto
+                this.collectTrash(intersect.object);
+                break;
+            }
+        }
+    }
+    
+    // Lógica para coletar o lixo
+    collectTrash(trashObject) {
+        this.scene.remove(trashObject);
+        this.trashItems = this.trashItems.filter(item => item !== trashObject);
+        
+        this.score++;
+        if (this.onScoreUpdate) {
+            this.onScoreUpdate(this.score);
+        }
+        
+        // Efeito sonoro simples (requer um arquivo de áudio)
+        // const audio = new Audio('path/to/collect.mp3');
+        // audio.play();
     }
 
-    .main-nav ul li {
-        margin: 10px 0;
-    }
-
-    .hero-section {
-        height: auto;
-        padding: 100px 0;
-    }
-
-    .game-ui {
-        grid-template-columns: 1fr;
+    // Registra uma função de callback para atualização de pontuação
+    onScoreUpdate(callback) {
+        this.onScoreUpdate = callback;
     }
 }
 
-/* ==========================================================================
-   Animações
-   ========================================================================== */
-.content-section, .simulator-section, .content-section-dark {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+// ==========================================================================
+// Módulo de Gerenciamento da Interface do Usuário (UI)
+// ==========================================================================
+class UIManager {
+    constructor() {
+        this.scoreElement = document.getElementById('score-value');
+        this.progressBarElement = document.getElementById('progress-bar');
+        this.progressTextElement = document.getElementById('progress-text');
+        this.redeemButton = document.getElementById('redeem-button');
+        this.faqItems = document.querySelectorAll('.faq-item');
+        this.sections = document.querySelectorAll('.content-section, .simulator-section, .content-section-dark');
+        
+        this.rewardThreshold = 1000;
+        this.bindUIEventListeners();
+        this.setupIntersectionObserver();
+    }
+
+    updateScore(newScore) {
+        this.scoreElement.textContent = newScore;
+        this.updateProgressBar(newScore);
+        this.checkRedeemButton(newScore);
+    }
+    
+    updateProgressBar(score) {
+        const progress = (score % this.rewardThreshold) / this.rewardThreshold * 100;
+        this.progressBarElement.style.width = `${progress}%`;
+        this.progressTextElement.textContent = `${score % this.rewardThreshold} / ${this.rewardThreshold}`;
+    }
+
+    checkRedeemButton(score) {
+        if (score >= this.rewardThreshold) {
+            this.redeemButton.disabled = false;
+            this.redeemButton.textContent = `Resgatar Recompensa (${Math.floor(score / this.rewardThreshold)})`;
+        } else {
+            this.redeemButton.disabled = true;
+            this.redeemButton.textContent = 'Resgatar Recompensa';
+        }
+    }
+    
+    bindUIEventListeners() {
+        // Lógica do Acordeão do FAQ
+        this.faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                this.faqItems.forEach(i => i.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Lógica do botão de resgate
+        this.redeemButton.addEventListener('click', () => {
+            if (!this.redeemButton.disabled) {
+                alert("Parabéns! Você resgatou uma recompensa. Um voucher será enviado para seu email cadastrado. (Funcionalidade de exemplo)");
+                // Aqui iria a lógica para diminuir a pontuação e desabilitar o botão se necessário
+            }
+        });
+    }
+
+    // Observer para animar seções ao rolar a página
+    setupIntersectionObserver() {
+        const observerOptions = {
+            root: null,
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        this.sections.forEach(section => {
+            observer.observe(section);
+        });
+    }
 }
 
-.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+
+// ==========================================================================
+// Ponto de Entrada Principal da Aplicação
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const uiManager = new UIManager();
+    const simulator = new ClimateHeroSimulator('simulator-container');
+
+    // Conecta o simulador à UI
+    simulator.onScoreUpdate((newScore) => {
+        uiManager.updateScore(newScore);
+    });
+});
