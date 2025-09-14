@@ -120,7 +120,8 @@ a {
    Seção Hero
    ========================================================================== */
 .hero-section {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.imgur.com/xG80pWJ.jpg'); /* Imagem de fundo genérica da Amazônia */
+    /* IMAGEM DE FUNDO ATUALIZADA AQUI */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.imgur.com/P6CHbxn.png');
     background-size: cover;
     background-position: center;
     color: var(--light-text-color);
@@ -134,11 +135,13 @@ a {
 
 .hero-section h1 {
     font-size: 4rem;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
     margin-bottom: 20px;
 }
 
 .hero-section p {
     font-size: 1.5rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
     margin-bottom: 30px;
 }
 
